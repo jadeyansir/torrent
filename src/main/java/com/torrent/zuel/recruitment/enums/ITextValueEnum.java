@@ -1,11 +1,13 @@
 package com.torrent.zuel.recruitment.enums;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 文本信息接口
  *
- * @author rex
+ * @author yan
  */
 public interface ITextValueEnum {
     /**
@@ -19,7 +21,6 @@ public interface ITextValueEnum {
     static <T extends ITextValueEnum> ITextValueEnum[] getEnums(Class<T> iTextValueEnumClass, int values) {
         return Arrays.stream(iTextValueEnumClass.getEnumConstants())
                 .filter(x -> (values & x.getValue()) > 0).toArray(ITextValueEnum[]::new);
-
     }
 
     /**
@@ -29,9 +30,49 @@ public interface ITextValueEnum {
      * @param <T>                 返回类型
      * @return 返回所有枚举值
      */
-    static <T extends ITextValueEnum> ITextValueEnum[] getAllEnums(Class<T> iTextValueEnumClass) {
+    static <T extends ITextValueEnum> T[] getAllEnums(Class<T> iTextValueEnumClass) {
         return iTextValueEnumClass.getEnumConstants();
     }
+
+    /**
+     * 获取所有大于0的枚举值
+     *
+     * @param iTextValueEnumClass 枚举类型
+     * @param values              枚举值
+     * @param <T>                 返回类型
+     * @return 返回所有大于0的枚举值
+     */
+    static <T extends ITextValueEnum> List<T> listEnums(Class<T> iTextValueEnumClass, int values) {
+        return Arrays.stream(iTextValueEnumClass.getEnumConstants())
+                .filter(x -> (values & x.getValue()) > 0).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取所有枚举值
+     *
+     * @param iTextValueEnumClass 枚举类型
+     * @param <T>                 返回类型
+     * @return 返回所有枚举值
+     */
+    static <T extends ITextValueEnum> List<T> listAllEnums(Class<T> iTextValueEnumClass) {
+        return Arrays.asList(iTextValueEnumClass.getEnumConstants());
+    }
+
+    /**
+     * 获取枚举文本
+     *
+     * @return 获取枚举文本信息
+     */
+    String getText();
+
+    /**
+     * 获取枚举值
+     *
+     * @return 获取枚举值
+     */
+    int getValue();
+
+    /// region 获取枚举类型
 
     /**
      * 获取对应的枚举值
@@ -54,18 +95,4 @@ public interface ITextValueEnum {
                 "No enum constant " + clazz.getCanonicalName() + " found by value: " + value);
     }
 
-
-    /**
-     * 获取枚举文本
-     *
-     * @return 获取枚举文本信息
-     */
-    String getText();
-
-    /**
-     * 获取枚举值
-     *
-     * @return 获取枚举值
-     */
-    int getValue();
 }

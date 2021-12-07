@@ -251,21 +251,6 @@ CREATE TABLE `process`
     KEY                  `idx_stu_uni_code_status` (`stu_uni_code`,`process_status`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='面试进度表';
 
-
-DROP TABLE IF EXISTS `industry`;
-CREATE TABLE `industry`
-(
-    `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `industry_uni_code` bigint(20) NOT NULL COMMENT '行业编码',
-    `industry_info`     varchar(50) DEFAULT NULL COMMENT '行业信息',
-    `create_by`         bigint(20) DEFAULT NULL COMMENT '创建人',
-    `create_time`       datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_by`         bigint(20) DEFAULT NULL COMMENT '修改人',
-    `update_time`       datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-    PRIMARY KEY (`id`),
-    KEY                 `idx_industry_uni_code` (`industry_uni_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行业信息表';
-
 DROP TABLE IF EXISTS `position_skill`;
 CREATE TABLE `position_skill`
 (
@@ -280,3 +265,19 @@ CREATE TABLE `position_skill`
     PRIMARY KEY (`id`),
     KEY                 `idx_skill_uni_code` (`skill_uni_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行业技能表';
+
+CREATE TABLE `industry_info`
+(
+    `id`            bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `indu_uni_code` bigint(11) unsigned DEFAULT '0' COMMENT '行业编码',
+    `indu_name`     varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '行业名称',
+    `parent_code`   bigint(11) unsigned DEFAULT '0' COMMENT '父类编码',
+    `indu_level`    tinyint(3) unsigned DEFAULT NULL COMMENT '行业级别: 1： 一级行业; 2: 二级行业',
+    `deleted`       tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`     bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`   datetime                               DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`     bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`   datetime                               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uk_indu_uni_code` (`indu_uni_code`) USING BTREE COMMENT '行业编码唯一索引'
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='行业信息表';
