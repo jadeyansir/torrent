@@ -1,7 +1,10 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import java.sql.*;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Table(name = "process")
 public class ProcessDO {
@@ -17,10 +20,15 @@ public class ProcessDO {
     @Column
     private Long stuUniCode;
     /**
-     * 学生姓名
+     * 岗位id
      */
     @Column
-    private String stuName;
+    private Long jobId;
+    /**
+     * 岗位描述
+     */
+    @Column
+    private String jobName;
     /**
      * 公司编码
      */
@@ -31,11 +39,6 @@ public class ProcessDO {
      */
     @Column
     private String comChiShortName;
-    /**
-     * 岗位id
-     */
-    @Column
-    private Long jobId;
     /**
      * 投递时间
      */
@@ -83,12 +86,12 @@ public class ProcessDO {
         this.stuUniCode = stuUniCode;
     }
 
-    public String getStuName() {
-        return stuName;
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
-    public void setStuName(String stuName) {
-        this.stuName = stuName;
+    public String getJobName() {
+        return jobName;
     }
 
     public Long getComUniCode() {

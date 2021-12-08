@@ -15,6 +15,11 @@ public class PositionDO {
     @Column
     private Long id;
     /**
+     * 岗位id
+     */
+    @Column
+    private Long jobId;
+    /**
      * 公司编码
      */
     @Column
@@ -121,6 +126,14 @@ public class PositionDO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public Long getJobId() {
+        return jobId;
     }
 
     public Long getComUniCode() {

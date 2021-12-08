@@ -18,6 +18,8 @@ public class ProcessDTO {
     private String comChiShortName;
     @ApiModelProperty("岗位id")
     private Long jobId;
+    @ApiModelProperty("岗位id")
+    private String jobName;
     @ApiModelProperty("投递时间")
     private Date deliverDate;
     @ApiModelProperty("投递进度(1:已投递,2:待面试,3:已面试,4:已录取,5:未录取)")
@@ -77,6 +79,14 @@ public class ProcessDTO {
 
     public void setJobId(Long jobId) {
         this.jobId = jobId;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    public String getJobName() {
+        return jobName;
     }
 
     public Date getDeliverDate() {

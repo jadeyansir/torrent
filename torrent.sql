@@ -1,3 +1,7 @@
+CREATE
+database if NOT EXISTS `torrent` default character set utf8mb4;
+
+
 DROP TABLE IF EXISTS `com_info`;
 CREATE TABLE `com_info`
 (
@@ -208,6 +212,7 @@ DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position`
 (
     `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `job_id`              bigint(20) NOT NULL COMMENT '岗位id',
     `com_uni_code`        bigint(20) NOT NULL COMMENT '公司编码',
     `job_name`            varchar(50)    DEFAULT NULL COMMENT '岗位描述',
     `job_work_place`      varchar(20)    DEFAULT NULL COMMENT '工作单位',
@@ -229,7 +234,8 @@ CREATE TABLE `position`
     `update_by`           bigint(20) DEFAULT NULL COMMENT '修改人',
     `update_time`         datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`),
-    KEY                   `idx_com_uni_code` (`com_uni_code`) USING BTREE
+    UNIQUE KEY `uk_job_id` (`job_id`) USING BTREE COMMENT '行业编码唯一索引'
+        KEY `idx_com_uni_code` (`com_uni_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='岗位表';
 
 DROP TABLE IF EXISTS `process`;
@@ -237,12 +243,12 @@ CREATE TABLE `process`
 (
     `id`                 bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `stu_uni_code`       bigint(20) NOT NULL COMMENT '学号',
-    `stu_name`           varchar(20) DEFAULT NULL COMMENT '学生姓名',
+    `job_id`             bigint(20) NOT NULL COMMENT '岗位id',
     `com_uni_code`       bigint(20) NOT NULL COMMENT '公司编码',
     `com_chi_short_name` varchar(50) DEFAULT NULL COMMENT '公司简称',
-    `job_id`             bigint(20) NOT NULL COMMENT '岗位id',
+    `job_name`           varchar(50) DEFAULT NULL COMMENT '岗位描述',
     `deliver_date`       date        DEFAULT NULL COMMENT '投递时间',
-    `process_status`     tinyint(4) DEFAULT NULL COMMENT '投递进度(1:已投递,2:待面试,3:已面试,4:已录取,5:未录取)',
+    `process_status`     tinyint(4) DEFAULT NULL COMMENT '投递进度(1:已投递,2:待面试,3:已面试,4:已录取,5:未录取,6:被拒绝)',
     `create_by`          bigint(20) DEFAULT NULL COMMENT '创建人',
     `create_time`        datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`          bigint(20) DEFAULT NULL COMMENT '修改人',
