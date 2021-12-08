@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.torrent.zuel.recruitment.mapper.mybatis.DeliverViewMapper">
+
+    <select id="listDeliver" parameterType="java.util.List" resultType="com.torrent.zuel.recruitment.model.entity.DeliverDO">
+        select *
+        from deliver
+        where stu_uni_code = #{stuUniCode}
+          and deliver_status = #{deliverStatus}
+    </select>
+</mapper>

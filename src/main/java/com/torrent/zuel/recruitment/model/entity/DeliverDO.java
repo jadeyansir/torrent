@@ -6,8 +6,8 @@ import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Table(name = "process")
-public class ProcessDO {
+@Table(name = "deliver")
+public class DeliverDO {
     /**
      * 主键
      */
@@ -45,10 +45,10 @@ public class ProcessDO {
     @Column
     private Date deliverDate;
     /**
-     * 投递进度(1:已投递,2:待面试,3:已面试,4:已录取,5:未录取)
+     * 投递进度(1:已收藏,2:已投递,3:待面试,4:已面试,5:已录取,6:未录取,7:被拒绝)
      */
     @Column
-    private Integer processStatus;
+    private Integer deliverStatus;
     /**
      * 创建人
      */
@@ -86,12 +86,20 @@ public class ProcessDO {
         this.stuUniCode = stuUniCode;
     }
 
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
     }
 
     public String getJobName() {
         return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     public Long getComUniCode() {
@@ -110,14 +118,6 @@ public class ProcessDO {
         this.comChiShortName = comChiShortName;
     }
 
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
     public Date getDeliverDate() {
         return deliverDate == null ? null : new Date(deliverDate.getTime());
     }
@@ -126,12 +126,12 @@ public class ProcessDO {
         this.deliverDate = deliverDate == null ? null : new Date(deliverDate.getTime());
     }
 
-    public Integer getProcessStatus() {
-        return processStatus;
+    public Integer getDeliverStatus() {
+        return deliverStatus;
     }
 
-    public void setProcessStatus(Integer processStatus) {
-        this.processStatus = processStatus;
+    public void setDeliverStatus(Integer deliverStatus) {
+        this.deliverStatus = deliverStatus;
     }
 
     public Long getCreateBy() {

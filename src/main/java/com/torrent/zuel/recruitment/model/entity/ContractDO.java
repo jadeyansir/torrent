@@ -1,7 +1,10 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import java.sql.*;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Table(name = "contract")
 public class ContractDO {
@@ -26,6 +29,16 @@ public class ContractDO {
      */
     @Column
     private String comChiShortName;
+    /**
+     * 岗位id
+     */
+    @Column
+    private Long jobId;
+    /**
+     * 岗位描述
+     */
+    @Column
+    private String jobName;
     /**
      * 签约时间
      */
@@ -97,6 +110,22 @@ public class ContractDO {
 
     public void setComChiShortName(String comChiShortName) {
         this.comChiShortName = comChiShortName;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     public Date getContractDate() {

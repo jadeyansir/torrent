@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 import static com.github.wz2cool.dynamic.builder.DynamicQueryBuilderHelper.*;
@@ -55,5 +56,11 @@ public class PositionDAO {
         }
         return PageHelper.startPage(positionRequestDTO.getPageNum(), positionRequestDTO.getPageSize())
                 .doSelectPageInfo(() -> positionDOMapper.selectByDynamicQuery(query));
+    }
+
+    public List<PositionDO> listPosition(List<Long> jobIdList) {
+        DynamicQuery<PositionDO> query = DynamicQuery.createQuery(PositionDO.class)
+                .and(PositionDO::getJobId, in(jobIdList));
+        return positionDOMapper.selectByDynamicQuery(query);
     }
 }

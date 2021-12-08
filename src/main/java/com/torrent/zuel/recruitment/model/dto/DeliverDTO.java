@@ -5,31 +5,25 @@ import io.swagger.annotations.ApiModelProperty;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class ProcessDTO {
+public class DeliverDTO {
     @ApiModelProperty("主键")
     private Long id;
     @ApiModelProperty("学号")
     private Long stuUniCode;
-    @ApiModelProperty("学生姓名")
-    private String stuName;
+    @ApiModelProperty("岗位id")
+    private Long jobId;
+    @ApiModelProperty("岗位描述")
+    private String jobName;
     @ApiModelProperty("公司编码")
     private Long comUniCode;
     @ApiModelProperty("公司简称")
     private String comChiShortName;
-    @ApiModelProperty("岗位id")
-    private Long jobId;
-    @ApiModelProperty("岗位id")
-    private String jobName;
     @ApiModelProperty("投递时间")
     private Date deliverDate;
-    @ApiModelProperty("投递进度(1:已投递,2:待面试,3:已面试,4:已录取,5:未录取)")
-    private Integer processStatus;
-    @ApiModelProperty("创建人")
-    private Long createBy;
-    @ApiModelProperty("创建时间")
-    private Timestamp createTime;
-    @ApiModelProperty("修改人")
-    private Long updateBy;
+    @ApiModelProperty("投递进度(1:已收藏,2:已投递,3:待面试,4:已面试,5:已录取,6:未录取,7:被拒绝)")
+    private Integer deliverStatus;
+    @ApiModelProperty("岗位是否过期(0表示岗位未过期,1表示未过期)")
+    private Integer deleted;
     @ApiModelProperty("修改时间")
     private Timestamp updateTime;
 
@@ -49,12 +43,20 @@ public class ProcessDTO {
         this.stuUniCode = stuUniCode;
     }
 
-    public String getStuName() {
-        return stuName;
+    public Long getJobId() {
+        return jobId;
     }
 
-    public void setStuName(String stuName) {
-        this.stuName = stuName;
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     public Long getComUniCode() {
@@ -73,22 +75,6 @@ public class ProcessDTO {
         this.comChiShortName = comChiShortName;
     }
 
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public String getJobName() {
-        return jobName;
-    }
-
     public Date getDeliverDate() {
         return deliverDate == null ? null : new Date(deliverDate.getTime());
     }
@@ -97,36 +83,20 @@ public class ProcessDTO {
         this.deliverDate = deliverDate == null ? null : new Date(deliverDate.getTime());
     }
 
-    public Integer getProcessStatus() {
-        return processStatus;
+    public Integer getDeliverStatus() {
+        return deliverStatus;
     }
 
-    public void setProcessStatus(Integer processStatus) {
-        this.processStatus = processStatus;
+    public void setDeliverStatus(Integer deliverStatus) {
+        this.deliverStatus = deliverStatus;
     }
 
-    public Long getCreateBy() {
-        return createBy;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
-    }
-
-    public Timestamp getCreateTime() {
-        return createTime == null ? null : new Timestamp(createTime.getTime());
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime == null ? null : new Timestamp(createTime.getTime());
-    }
-
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
+    public Integer getDeleted() {
+        return deleted;
     }
 
     public Timestamp getUpdateTime() {

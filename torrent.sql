@@ -189,25 +189,6 @@ CREATE TABLE `record_mark_type_system`
 
 
 
-DROP TABLE IF EXISTS `contract`;
-CREATE TABLE `contract`
-(
-    `id`                 bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `stu_uni_code`       bigint(20) NOT NULL COMMENT '学号',
-    `stu_name`           varchar(20)  DEFAULT NULL COMMENT '学生姓名',
-    `com_chi_short_name` varchar(50)  DEFAULT NULL COMMENT '公司简称',
-    `contract_date`      date         DEFAULT NULL COMMENT '签约时间',
-    `contract_status`    tinyint(4) DEFAULT NULL COMMENT '签约状态(1:待签约,2:已签约,3:已拒绝)',
-    `contract_pic_link`  varchar(500) DEFAULT NULL COMMENT '合同图片oss链接',
-    `contract_pic_key`   varchar(200) DEFAULT NULL COMMENT '合同图片key值',
-    `create_by`          bigint(20) DEFAULT NULL COMMENT '创建人',
-    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_by`          bigint(20) DEFAULT NULL COMMENT '修改人',
-    `update_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-    PRIMARY KEY (`id`),
-    KEY                  `idx_stu_uni_code_status` (`stu_uni_code`,`contract_status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='签约表';
-
 DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position`
 (
@@ -223,7 +204,7 @@ CREATE TABLE `position`
     `job_number`          int(11) DEFAULT NULL COMMENT '岗位数量',
     `job_min_salary`      decimal(12, 4) DEFAULT NULL COMMENT '岗位最小薪水',
     `job_max_salary`      decimal(12, 4) DEFAULT NULL COMMENT '岗位最大薪水',
-    `skill_uni_code`      varchar(500) NOT NULL COMMENT '技能编码(以逗号隔开)',
+    `skill_uni_code`      varchar(500)   DEFAULT NULL COMMENT '技能编码(以逗号隔开)',
     `job_duty`            varchar(3000)  DEFAULT NULL COMMENT '岗位职责',
     `job_required`        varchar(3000)  DEFAULT NULL COMMENT '岗位要求',
     `job_welfare`         varchar(200)   DEFAULT NULL COMMENT '岗位福利',
@@ -238,24 +219,46 @@ CREATE TABLE `position`
         KEY `idx_com_uni_code` (`com_uni_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='岗位表';
 
-DROP TABLE IF EXISTS `process`;
-CREATE TABLE `process`
+DROP TABLE IF EXISTS `contract`;
+CREATE TABLE `contract`
+(
+    `id`                 bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `stu_uni_code`       bigint(20) NOT NULL COMMENT '学号',
+    `stu_name`           varchar(20)  DEFAULT NULL COMMENT '学生姓名',
+    `com_chi_short_name` varchar(50)  DEFAULT NULL COMMENT '公司简称',
+    `job_id`             bigint(20) NOT NULL COMMENT '岗位id',
+    `job_name`           varchar(50)  DEFAULT NULL COMMENT '岗位描述',
+    `contract_date`      date         DEFAULT NULL COMMENT '签约时间',
+    `contract_status`    tinyint(4) DEFAULT NULL COMMENT '签约状态(1:待签约,2:已签约,3:已拒绝)',
+    `contract_pic_link`  varchar(500) DEFAULT NULL COMMENT '合同图片oss链接',
+    `contract_pic_key`   varchar(200) DEFAULT NULL COMMENT '合同图片key值',
+    `create_by`          bigint(20) DEFAULT NULL COMMENT '创建人',
+    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`          bigint(20) DEFAULT NULL COMMENT '修改人',
+    `update_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`),
+    KEY                  `idx_stu_uni_code_contract_status` (`stu_uni_code`,`contract_status`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='签约表';
+
+
+DROP TABLE IF EXISTS `deliver`;
+CREATE TABLE `deliver`
 (
     `id`                 bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `stu_uni_code`       bigint(20) NOT NULL COMMENT '学号',
     `job_id`             bigint(20) NOT NULL COMMENT '岗位id',
+    `job_name`           varchar(50) DEFAULT NULL COMMENT '岗位描述',
     `com_uni_code`       bigint(20) NOT NULL COMMENT '公司编码',
     `com_chi_short_name` varchar(50) DEFAULT NULL COMMENT '公司简称',
-    `job_name`           varchar(50) DEFAULT NULL COMMENT '岗位描述',
     `deliver_date`       date        DEFAULT NULL COMMENT '投递时间',
-    `process_status`     tinyint(4) DEFAULT NULL COMMENT '投递进度(1:已投递,2:待面试,3:已面试,4:已录取,5:未录取,6:被拒绝)',
+    `deliver_status`     tinyint(4) DEFAULT NULL COMMENT '投递进度(1:已收藏,2:已投递,3:待面试,4:已面试,5:已录取,6:未录取,7:被拒绝)',
     `create_by`          bigint(20) DEFAULT NULL COMMENT '创建人',
     `create_time`        datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`          bigint(20) DEFAULT NULL COMMENT '修改人',
     `update_time`        datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`),
-    KEY                  `idx_stu_uni_code_status` (`stu_uni_code`,`process_status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='面试进度表';
+    KEY                  `idx_stu_uni_code_deliver_status` (`stu_uni_code`,`deliver_status`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投递进度表';
 
 DROP TABLE IF EXISTS `position_skill`;
 CREATE TABLE `position_skill`
