@@ -22,6 +22,8 @@ CREATE TABLE `com_info`
     `com_pic_key`        varchar(200) DEFAULT NULL COMMENT '学校图片key值',
     `approval_status`    tinyint(4) DEFAULT NULL COMMENT '审核状态(1:通过,2:待审核,3:不通过)',
     `deleted`            tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除:0表示没有删除,1表示删除',
+    `com_type`           int(11) DEFAULT NULL COMMENT '公司类型',
+    `com_size`           int(11) DEFAULT NULL COMMENT '公司规模',
     `create_by`          bigint(20) DEFAULT NULL COMMENT '创建人',
     `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`          bigint(20) DEFAULT NULL COMMENT '修改人',
@@ -66,6 +68,8 @@ CREATE TABLE `student_info`
     `stu_birth_date`      date         DEFAULT NULL COMMENT '出生日期',
     `stu_origin_place`    varchar(150) DEFAULT NULL COMMENT '籍贯',
     `stu_polity`          varchar(50)  DEFAULT NULL COMMENT '政治面貌',
+    `college_uni_code`    bigint(20) DEFAULT NULL COMMENT '学校编码',
+    `college_chi_name`    varchar(100) DEFAULT NULL COMMENT '学校名称',
     `stu_academy`         varchar(100) DEFAULT NULL COMMENT '所在院系',
     `stu_major`           varchar(50)  DEFAULT NULL COMMENT '专业',
     `stu_grade`           tinyint(4) DEFAULT NULL COMMENT '所在年级',
@@ -193,11 +197,11 @@ DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position`
 (
     `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `job_id`              bigint(20) NOT NULL COMMENT '岗位id',
     `com_uni_code`        bigint(20) NOT NULL COMMENT '公司编码',
     `job_name`            varchar(50)    DEFAULT NULL COMMENT '岗位描述',
     `job_work_place`      varchar(20)    DEFAULT NULL COMMENT '工作单位',
-    `job_type`            varchar(10)    DEFAULT NULL COMMENT '岗位类型',
+    `job_type`            tinyint(4) DEFAULT NULL COMMENT '工作性质',
+    `job_address`         int(11) DEFAULT NULL COMMENT '岗位地点',
     `education_level`     tinyint(4) DEFAULT NULL COMMENT '学历(1:博士;2:硕士;3:学士;4:专科;5:高中及以下)',
     `job_work_begin_year` int(11) DEFAULT NULL COMMENT '岗位要求年限',
     `job_work_end_year`   int(11) DEFAULT NULL COMMENT '岗位要求年限',
@@ -210,13 +214,15 @@ CREATE TABLE `position`
     `job_welfare`         varchar(200)   DEFAULT NULL COMMENT '岗位福利',
     `approval_status`     tinyint(4) DEFAULT NULL COMMENT '审核状态(1:通过,2:待审核,3:不通过)',
     `deleted`             tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除:0表示没有删除,1表示删除',
+    `com_type`            int(11) DEFAULT NULL COMMENT '公司类型',
+    `com_size`            int(11) DEFAULT NULL COMMENT '公司规模',
     `create_by`           bigint(20) DEFAULT NULL COMMENT '创建人',
     `create_time`         datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`           bigint(20) DEFAULT NULL COMMENT '修改人',
     `update_time`         datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_job_id` (`job_id`) USING BTREE COMMENT '行业编码唯一索引'
-        KEY `idx_com_uni_code` (`com_uni_code`) USING BTREE
+    KEY                   `idx_com_uni_code` (`com_uni_code`) USING BTREE,
+    KEY                   `idx_job_type_job_address_education_level_com_type_com_size` (`job_type`,`job_address`,`education_level`,`com_type`,`com_size`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='岗位表';
 
 DROP TABLE IF EXISTS `contract`;
@@ -275,18 +281,191 @@ CREATE TABLE `position_skill`
     KEY                 `idx_skill_uni_code` (`skill_uni_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行业技能表';
 
+DROP TABLE IF EXISTS `industry_info`;
 CREATE TABLE `industry_info`
 (
+    `id`                     bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `industry_code`          int(8) unsigned DEFAULT '0' COMMENT '行业编码',
+    `industry_name`          varchar(50) DEFAULT NULL COMMENT '行业名称',
+    `industry_category_code` int(8) unsigned DEFAULT '0' COMMENT '行业分类编码',
+    `industry_category_name` varchar(50) DEFAULT NULL COMMENT '行业名称',
+    `industry_level`         tinyint(3) unsigned DEFAULT NULL COMMENT '行业级别: 1： 一级行业; 2: 二级行业',
+    `deleted`                tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`              bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`            datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`              bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`            datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uk_industry_code` (`industry_code`) USING BTREE COMMENT '行业编码唯一索引'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行业信息表';
+
+DROP TABLE IF EXISTS `public_dict`;
+CREATE TABLE `public_dict`
+(
+    `id`                    bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `parameter_system_code` int(11) DEFAULT NULL COMMENT '参数系编码',
+    `parameter_system_name` varchar(32)  DEFAULT NULL COMMENT '参数系名称',
+    `parameter_code`        int(11) DEFAULT NULL COMMENT '参数编码',
+    `parameter_name`        varchar(32)  DEFAULT NULL COMMENT '参数名称',
+    `parameter_desc`        varchar(255) DEFAULT NULL COMMENT '参数说明',
+    `valid`                 tinyint(4) unsigned DEFAULT '1' COMMENT '是否有效(0：无效 1：有效)',
+    `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`           datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uK_parameter_code` (`parameter_system_code`,`parameter_code`,`valid`),
+    KEY                     `idx_parameter_system_code_valid` (`parameter_system_code`,`valid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
+
+DROP TABLE IF EXISTS `resume`;
+CREATE TABLE `resume`
+(
+    `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `stu_uni_code`      bigint(20) NOT NULL COMMENT '学号',
+    `job_name`          varchar(50)    DEFAULT NULL COMMENT '岗位描述',
+    `industry_code`     int(8) unsigned DEFAULT '0' COMMENT '行业编码',
+    `industry_name`     varchar(30)    DEFAULT NULL COMMENT '行业名称',
+    `job_type`          tinyint(4) DEFAULT NULL COMMENT '工作性质',
+    `job_address`       varchar(50)    DEFAULT NULL COMMENT '期望岗位地点',
+    `job_min_salary`    decimal(12, 4) DEFAULT NULL COMMENT '岗位期望最小薪水',
+    `job_max_salary`    decimal(12, 4) DEFAULT NULL COMMENT '岗位期望最大薪水',
+    `job_search_status` tinyint(4) DEFAULT NULL COMMENT '求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)',
+    `deleted`           tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除:0表示没有删除,1表示删除',
+    `create_by`         bigint(20) DEFAULT NULL COMMENT '创建人',
+    `create_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`         bigint(20) DEFAULT NULL COMMENT '修改人',
+    `update_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (`id`),
+    KEY                 `idx_stu_uni_code` (`stu_uni_code`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历表';
+
+DROP TABLE IF EXISTS `education_history`;
+CREATE TABLE `education_history`
+(
+    `id`                    bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `stu_uni_code`          bigint(20) NOT NULL COMMENT '学号',
+    `college_uni_code`      bigint(20) DEFAULT NULL COMMENT '学校编码',
+    `college_chi_name`      varchar(100) DEFAULT NULL COMMENT '学校名称',
+    `education_level`       tinyint(4) DEFAULT NULL COMMENT '学历',
+    `education_field`       varchar(30)  DEFAULT NULL COMMENT '所学专业',
+    `academic_certificates` tinyint(4) unsigned DEFAULT NULL COMMENT '学历证书',
+    `education_begin_time`  DATE         DEFAULT NULL COMMENT '工作开始时间',
+    `education_end_time`    DATE         DEFAULT NULL COMMENT '工作结束时间',
+    `deleted`               tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`             bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`           datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`             bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`           datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                     `uk_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教育经历';
+
+DROP TABLE IF EXISTS `work_history`;
+CREATE TABLE `work_history`
+(
+    `id`                  bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `stu_uni_code`        bigint(20) NOT NULL COMMENT '学号',
+    `com_uni_code`        bigint(20) DEFAULT NULL COMMENT '公司编码',
+    `com_chi_name`        varchar(200) DEFAULT NULL COMMENT '公司名称',
+    `com_chi_short_name`  varchar(50)  DEFAULT NULL COMMENT '公司简称',
+    `industry_code`       int(8) unsigned DEFAULT '0' COMMENT '行业编码',
+    `industry_name`       varchar(50)  DEFAULT NULL COMMENT '行业名称',
+    `monthly_salary`      int(8) unsigned DEFAULT NULL COMMENT '月薪',
+    `job_work_begin_time` DATE         DEFAULT NULL COMMENT '工作开始时间',
+    `job_work_end_time`   DATE         DEFAULT NULL COMMENT '工作结束时间',
+    `job_detail`          varchar(200) DEFAULT NULL COMMENT '职位描述',
+    `deleted`             tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`           bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`         datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`           bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`         datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                   `uk_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工作|实习经历';
+
+DROP TABLE IF EXISTS `project_history`;
+CREATE TABLE `project_history`
+(
+    `id`                 bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `stu_uni_code`       bigint(20) NOT NULL COMMENT '学号',
+    `com_uni_code`       bigint(20) DEFAULT NULL COMMENT '公司编码',
+    `com_chi_name`       varchar(50)  DEFAULT NULL COMMENT '公司名称',
+    `com_chi_short_name` varchar(30)  DEFAULT NULL COMMENT '公司简称',
+    `project_name`       varchar(50)  DEFAULT NULL COMMENT '项目名称',
+    `project_begin_time` DATE         DEFAULT NULL COMMENT '项目开始时间',
+    `project_end_time`   DATE         DEFAULT NULL COMMENT '项目结束时间',
+    `project_detail`     varchar(200) DEFAULT NULL COMMENT '职位描述',
+    `deleted`            tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`          bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`          bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`        datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                  `key_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目经历';
+
+DROP TABLE IF EXISTS `language_skills`;
+CREATE TABLE `language_skills`
+(
+    `id`                  bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `stu_uni_code`        bigint(20) NOT NULL COMMENT '学号',
+    `language_type`       varchar(30) DEFAULT NULL COMMENT '语种',
+    `Listen_speak_skills` varchar(30) DEFAULT NULL COMMENT '听说能力',
+    `Read_write_skills`   varchar(30) DEFAULT NULL COMMENT '读写能力',
+    `deleted`             tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`           bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`           bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`         datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                   `key_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='语言能力';
+
+DROP TABLE IF EXISTS `professional_skills`;
+CREATE TABLE `professional_skills`
+(
     `id`            bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `indu_uni_code` bigint(11) unsigned DEFAULT '0' COMMENT '行业编码',
-    `indu_name`     varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '行业名称',
-    `parent_code`   bigint(11) unsigned DEFAULT '0' COMMENT '父类编码',
-    `indu_level`    tinyint(3) unsigned DEFAULT NULL COMMENT '行业级别: 1： 一级行业; 2: 二级行业',
+    `stu_uni_code`  bigint(20) NOT NULL COMMENT '学号',
+    `skill_name`    varchar(30) DEFAULT NULL COMMENT '技能名称',
+    `use_time`      int(8) DEFAULT NULL COMMENT '使用时长',
+    `mastery_level` tinyint(4) DEFAULT NULL COMMENT '掌握程度',
     `deleted`       tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
     `create_by`     bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
-    `create_time`   datetime                               DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`     bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
-    `update_time`   datetime                               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `uk_indu_uni_code` (`indu_uni_code`) USING BTREE COMMENT '行业编码唯一索引'
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='行业信息表';
+    KEY             `key_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='专业技能';
+
+DROP TABLE IF EXISTS `certificate`;
+CREATE TABLE `certificate`
+(
+    `id`              bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `stu_uni_code`    bigint(20) NOT NULL COMMENT '学号',
+    `certificate_ame` varchar(30) DEFAULT NULL COMMENT '证书名称',
+    `get_time`        int(8) DEFAULT NULL COMMENT '获得时间',
+    `deleted`         tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`       bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`       bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`     datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY               `key_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='证书';
+
+DROP TABLE IF EXISTS `student_officer`;
+CREATE TABLE `student_officer`
+(
+    `id`               bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `stu_uni_code`     bigint(20) NOT NULL COMMENT '学号',
+    `officer_name`     varchar(30) DEFAULT NULL COMMENT '干部名称',
+    `serve_begin_time` DATE        DEFAULT NULL COMMENT '任职开始时间',
+    `serve_end_time`   DATE        DEFAULT NULL COMMENT '任职结束时间',
+    `deleted`          tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除：0： 未删除。 1： 已删除',
+    `create_by`        bigint(11) unsigned DEFAULT NULL COMMENT '创建人',
+    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`        bigint(11) unsigned DEFAULT NULL COMMENT '更新人',
+    `update_time`      datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                `key_stu_uni_code` (`stu_uni_code`) USING BTREE COMMENT '学号'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生干部经历';
