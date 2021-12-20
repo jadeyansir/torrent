@@ -48,7 +48,7 @@ public class ProcessServiceImpl implements ProcessService {
             List<Long> jobIdList = deliverResponseDTOList.stream()
                     .filter(x -> Objects.nonNull(x.getJobId())).map(DeliverResponseDTO::getJobId).collect(Collectors.toList());
             Map<Long, Integer> jobIdToDeletedMap = positionDAO.listPosition(jobIdList).stream()
-                    .collect(Collectors.toMap(PositionDO::getJobId, PositionDO::getDeleted, (x1, x2) -> x1));
+                    .collect(Collectors.toMap(PositionDO::getId, PositionDO::getDeleted, (x1, x2) -> x1));
             for (DeliverResponseDTO deliverResponseDTO : deliverResponseDTOList) {
                 deliverResponseDTO.setDeleted(jobIdToDeletedMap.get(deliverResponseDTO.getJobId()));
             }

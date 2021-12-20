@@ -35,7 +35,7 @@ public class IndustryController {
 
     @ApiOperation("行业树形结构:到二级")
     @GetMapping("/tree/info/level/two")
-    public RestResponse<IndustryTreeInfoResponseDTO> listIndustryTreeLevelTwoInfo() {
+    public RestResponse<List<IndustryTreeInfoResponseDTO>> listIndustryTreeLevelTwoInfo() {
         return RestResponse.Success(industryService.listIndustryTreeLevelTwoInfo());
     }
 }

@@ -11,24 +11,24 @@ import io.swagger.annotations.ApiModelProperty;
 public class IndustryInfoDTO {
 
     @ApiModelProperty("行业唯一编码")
-    private Long induUniCode;
+    private Integer industryCategoryCode;
     @ApiModelProperty("行业名称")
-    private String induName;
+    private String industryCategoryName;
 
-    public Long getInduUniCode() {
-        return induUniCode;
+    public Integer getIndustryCategoryCode() {
+        return industryCategoryCode;
     }
 
-    public void setInduUniCode(Long induUniCode) {
-        this.induUniCode = induUniCode;
+    public void setIndustryCategoryCode(Integer industryCategoryCode) {
+        this.industryCategoryCode = industryCategoryCode;
     }
 
-    public String getInduName() {
-        return induName;
+    public String getIndustryCategoryName() {
+        return industryCategoryName;
     }
 
-    public void setInduName(String induName) {
-        this.induName = induName;
+    public void setIndustryCategoryName(String industryCategoryName) {
+        this.industryCategoryName = industryCategoryName;
     }
 }
 

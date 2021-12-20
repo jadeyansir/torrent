@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.torrent.zuel.recruitment.dao.IndustryInfoDAO;
 import com.torrent.zuel.recruitment.enums.IndustryLevelEnum;
 import com.torrent.zuel.recruitment.model.dto.internal.IndustryInfoDTO;
+import com.torrent.zuel.recruitment.model.dto.request.IndustryInfoRequestDTO;
 import com.torrent.zuel.recruitment.model.dto.response.IndustryTreeInfoResponseDTO;
 import com.torrent.zuel.recruitment.model.entity.IndustryInfoDO;
 import com.torrent.zuel.recruitment.service.IndustryService;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -37,14 +37,6 @@ public class IndustryServiceImpl implements IndustryService, InitializingBean {
      * 行业信息基本不会变，存放在JVM中
      */
     private List<IndustryInfoDO> industryInfoDOCacheList;
-    /**
-     * 行业树形结构根节点编号
-     */
-    private static final long INDUSTRY_ROOT_CODE = 0;
-    /**
-     * 行业树形结构根节点名称
-     */
-    private static final String INDUSTRY_ROOT_NAME = "全部行业";
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -54,42 +46,37 @@ public class IndustryServiceImpl implements IndustryService, InitializingBean {
     @Override
     public List<IndustryInfoDTO> listIndustryLevelOneInfo() {
         List<IndustryInfoDO> levelOneIndustryInfo = listIndustryInfoDO().stream()
-                .filter(x -> Objects.equals(x.getInduLevel(), IndustryLevelEnum.LEVEL_ONE.getValue()))
+                .filter(x -> Objects.equals(x.getIndustryLevel(), IndustryLevelEnum.LEVEL_ONE.getValue()))
                 .collect(Collectors.toList());
         return BeanCopyUtils.copyList(levelOneIndustryInfo, IndustryInfoDTO.class);
     }
 
     @Override
-    public IndustryTreeInfoResponseDTO listIndustryTreeLevelTwoInfo() {
-        Map<Long, List<IndustryInfoDO>> areaInfoMap = listIndustryInfoDO().stream()
-                .filter(x -> Objects.equals(x.getInduLevel(), IndustryLevelEnum.LEVEL_ONE.getValue()) ||
-                        Objects.equals(x.getInduLevel(), IndustryLevelEnum.LEVEL_TWO.getValue()))
-                .collect(Collectors.groupingBy(IndustryInfoDO::getParentCode));
-        return getIndustryTreeInfo(INDUSTRY_ROOT_CODE, INDUSTRY_ROOT_NAME, areaInfoMap);
-    }
-
-    private IndustryTreeInfoResponseDTO getIndustryTreeInfo(
-            Long induUniCode, String induName, Map<Long, List<IndustryInfoDO>> industryInfoMap) {
-        List<IndustryInfoDO> industryInfoDOList =
-                industryInfoMap.getOrDefault(induUniCode, Collections.emptyList());
-        IndustryTreeInfoResponseDTO responseDTO = new IndustryTreeInfoResponseDTO();
-        responseDTO.setInduUniCode(induUniCode);
-        responseDTO.setInduName(induName);
-
-        // 递归出口
-        if (CollectionUtils.isEmpty(industryInfoDOList)) {
-            responseDTO.setChildInfoList(Collections.emptyList());
-            return responseDTO;
+    public List<IndustryTreeInfoResponseDTO> listIndustryTreeLevelTwoInfo() {
+        Map<Integer, List<IndustryInfoDO>> areaInfoMap = listIndustryInfoDO().stream()
+                .filter(x -> Objects.equals(x.getIndustryLevel(), IndustryLevelEnum.LEVEL_ONE.getValue()) ||
+                        Objects.equals(x.getIndustryLevel(), IndustryLevelEnum.LEVEL_TWO.getValue()))
+                .collect(Collectors.groupingBy(IndustryInfoDO::getIndustryCategoryCode));
+        List<IndustryTreeInfoResponseDTO> responseDTOList = Lists.newArrayList();
+        for (Map.Entry<Integer, List<IndustryInfoDO>> integerListEntry : areaInfoMap.entrySet()) {
+            IndustryTreeInfoResponseDTO responseDTO = new IndustryTreeInfoResponseDTO();
+            List<IndustryInfoDO> industryInfoDOList = integerListEntry.getValue();
+            List<IndustryTreeInfoResponseDTO> industryTreeInfoResponseDTOList = Lists.newArrayList();
+            for (IndustryInfoDO industryInfoDO : industryInfoDOList) {
+                if (Objects.equals(IndustryLevelEnum.LEVEL_ONE.getValue(), industryInfoDO.getIndustryLevel())) {
+                    responseDTO.setIndustryCode(industryInfoDO.getIndustryCategoryCode());
+                    responseDTO.setIndustryName(industryInfoDO.getIndustryCategoryName());
+                    continue;
+                }
+                IndustryTreeInfoResponseDTO industryTreeInfoResponseDTO = new IndustryTreeInfoResponseDTO();
+                industryTreeInfoResponseDTO.setIndustryCode(industryInfoDO.getIndustryCode());
+                industryTreeInfoResponseDTO.setIndustryName(industryInfoDO.getIndustryName());
+                industryTreeInfoResponseDTOList.add(industryTreeInfoResponseDTO);
+            }
+            responseDTO.setChildInfoList(industryTreeInfoResponseDTOList);
+            responseDTOList.add(responseDTO);
         }
-        // 递归处理嵌套
-        List<IndustryTreeInfoResponseDTO> childResponseDTOList = Lists.newArrayListWithExpectedSize(industryInfoDOList.size());
-        for (IndustryInfoDO industryInfoDO : industryInfoDOList) {
-            IndustryTreeInfoResponseDTO industryTreeInfo =
-                    getIndustryTreeInfo(industryInfoDO.getInduUniCode(), industryInfoDO.getInduName(), industryInfoMap);
-            childResponseDTOList.add(industryTreeInfo);
-        }
-        responseDTO.setChildInfoList(childResponseDTOList);
-        return responseDTO;
+        return responseDTOList;
     }
 
     @Override
@@ -104,5 +91,22 @@ public class IndustryServiceImpl implements IndustryService, InitializingBean {
             logger.warn("listIndustryInfoDO, read db");
         }
         return Lists.newArrayList(this.industryInfoDOCacheList);
+    }
+
+    @Override
+    public Integer insertIndustry(List<IndustryInfoRequestDTO> industryInfoRequestDTOList) {
+        if (CollectionUtils.isEmpty(industryInfoRequestDTOList)) {
+            return 0;
+        }
+        List<IndustryInfoDO> industryInfoDOList = industryInfoRequestDTOList.stream().map(x -> {
+            IndustryInfoDO industryInfoDO = BeanCopyUtils.copyProperties(x, IndustryInfoDO.class);
+            if (Objects.equals(x.getIndustryCategoryCode(), x.getIndustryCode())) {
+                industryInfoDO.setIndustryLevel(IndustryLevelEnum.LEVEL_ONE.getValue());
+            } else {
+                industryInfoDO.setIndustryLevel(IndustryLevelEnum.LEVEL_TWO.getValue());
+            }
+            return industryInfoDO;
+        }).collect(Collectors.toList());
+        return industryInfoDAO.insertIndustry(industryInfoDOList);
     }
 }
