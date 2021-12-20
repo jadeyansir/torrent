@@ -1,6 +1,7 @@
 package com.torrent.zuel.recruitment.service;
 
 import com.torrent.zuel.recruitment.model.dto.internal.IndustryInfoDTO;
+import com.torrent.zuel.recruitment.model.dto.request.IndustryInfoRequestDTO;
 import com.torrent.zuel.recruitment.model.dto.response.IndustryTreeInfoResponseDTO;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface IndustryService {
      *
      * @return 行业信息
      */
-    IndustryTreeInfoResponseDTO listIndustryTreeLevelTwoInfo();
+    List<IndustryTreeInfoResponseDTO> listIndustryTreeLevelTwoInfo();
 
     /**
      * 刷新行业缓存信息
@@ -33,5 +34,7 @@ public interface IndustryService {
      * @return 影响行数
      */
     Integer refreshIndustryInfo();
+
+    Integer insertIndustry(List<IndustryInfoRequestDTO> industryInfoRequestDTO);
 
 }

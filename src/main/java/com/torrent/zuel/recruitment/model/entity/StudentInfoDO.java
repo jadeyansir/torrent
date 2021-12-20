@@ -1,7 +1,10 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import java.sql.*;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Table(name = "student_info")
 public class StudentInfoDO {
@@ -46,6 +49,16 @@ public class StudentInfoDO {
      */
     @Column
     private String stuPolity;
+    /**
+     * 学校编码
+     */
+    @Column
+    private Long collegeUniCode;
+    /**
+     * 学校名称
+     */
+    @Column
+    private String collegeChiName;
     /**
      * 所在院系
      */
@@ -204,6 +217,22 @@ public class StudentInfoDO {
 
     public void setStuPolity(String stuPolity) {
         this.stuPolity = stuPolity;
+    }
+
+    public Long getCollegeUniCode() {
+        return collegeUniCode;
+    }
+
+    public void setCollegeUniCode(Long collegeUniCode) {
+        this.collegeUniCode = collegeUniCode;
+    }
+
+    public String getCollegeChiName() {
+        return collegeChiName;
+    }
+
+    public void setCollegeChiName(String collegeChiName) {
+        this.collegeChiName = collegeChiName;
     }
 
     public String getStuAcademy() {
