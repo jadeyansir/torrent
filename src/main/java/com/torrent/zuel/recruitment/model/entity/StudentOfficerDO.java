@@ -1,12 +1,10 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.sql.*;
+import javax.persistence.*;
 
-@Table(name = "industry_info")
-public class IndustryInfoDO {
+@Table(name = "student_officer")
+public class StudentOfficerDO {
     /**
      * 主键id
      */
@@ -14,30 +12,25 @@ public class IndustryInfoDO {
     @Column
     private Long id;
     /**
-     * 行业编码
+     * 学号
      */
     @Column
-    private Integer industryCode;
+    private Long stuUniCode;
     /**
-     * 行业名称
+     * 干部名称
      */
     @Column
-    private String industryName;
+    private String officerName;
     /**
-     * 行业分类编码
+     * 任职开始时间
      */
     @Column
-    private Integer industryCategoryCode;
+    private Date serveBeginTime;
     /**
-     * 行业名称
+     * 任职结束时间
      */
     @Column
-    private String industryCategoryName;
-    /**
-     * 行业级别: 1： 一级行业; 2: 二级行业
-     */
-    @Column
-    private Integer industryLevel;
+    private Date serveEndTime;
     /**
      * 是否删除：0： 未删除。 1： 已删除
      */
@@ -72,44 +65,36 @@ public class IndustryInfoDO {
         this.id = id;
     }
 
-    public Integer getIndustryCode() {
-        return industryCode;
+    public Long getStuUniCode() {
+        return stuUniCode;
     }
 
-    public void setIndustryCode(Integer industryCode) {
-        this.industryCode = industryCode;
+    public void setStuUniCode(Long stuUniCode) {
+        this.stuUniCode = stuUniCode;
     }
 
-    public String getIndustryName() {
-        return industryName;
+    public String getOfficerName() {
+        return officerName;
     }
 
-    public void setIndustryName(String industryName) {
-        this.industryName = industryName;
+    public void setOfficerName(String officerName) {
+        this.officerName = officerName;
     }
 
-    public Integer getIndustryCategoryCode() {
-        return industryCategoryCode;
+    public Date getServeBeginTime() {
+        return serveBeginTime == null ? null : new Date(serveBeginTime.getTime());
     }
 
-    public void setIndustryCategoryCode(Integer industryCategoryCode) {
-        this.industryCategoryCode = industryCategoryCode;
+    public void setServeBeginTime(Date serveBeginTime) {
+        this.serveBeginTime = serveBeginTime == null ? null : new Date(serveBeginTime.getTime());
     }
 
-    public String getIndustryCategoryName() {
-        return industryCategoryName;
+    public Date getServeEndTime() {
+        return serveEndTime == null ? null : new Date(serveEndTime.getTime());
     }
 
-    public void setIndustryCategoryName(String industryCategoryName) {
-        this.industryCategoryName = industryCategoryName;
-    }
-
-    public Integer getIndustryLevel() {
-        return industryLevel;
-    }
-
-    public void setIndustryLevel(Integer industryLevel) {
-        this.industryLevel = industryLevel;
+    public void setServeEndTime(Date serveEndTime) {
+        this.serveEndTime = serveEndTime == null ? null : new Date(serveEndTime.getTime());
     }
 
     public Integer getDeleted() {

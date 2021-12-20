@@ -3,16 +3,27 @@ package com.torrent.zuel.recruitment.model.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Table(name = "industry_info")
-public class IndustryInfoDO {
+@Table(name = "resume")
+public class ResumeDO {
     /**
-     * 主键id
+     * 主键
      */
     @Id
     @Column
     private Long id;
+    /**
+     * 学号
+     */
+    @Column
+    private Long stuUniCode;
+    /**
+     * 岗位描述
+     */
+    @Column
+    private String jobName;
     /**
      * 行业编码
      */
@@ -24,22 +35,32 @@ public class IndustryInfoDO {
     @Column
     private String industryName;
     /**
-     * 行业分类编码
+     * 工作性质
      */
     @Column
-    private Integer industryCategoryCode;
+    private Integer jobType;
     /**
-     * 行业名称
+     * 期望岗位地点
      */
     @Column
-    private String industryCategoryName;
+    private String jobAddress;
     /**
-     * 行业级别: 1： 一级行业; 2: 二级行业
+     * 岗位期望最小薪水
      */
     @Column
-    private Integer industryLevel;
+    private BigDecimal jobMinSalary;
     /**
-     * 是否删除：0： 未删除。 1： 已删除
+     * 岗位期望最大薪水
+     */
+    @Column
+    private BigDecimal jobMaxSalary;
+    /**
+     * 求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)
+     */
+    @Column
+    private Integer jobSearchStatus;
+    /**
+     * 是否删除:0表示没有删除,1表示删除
      */
     @Column
     private Integer deleted;
@@ -54,12 +75,12 @@ public class IndustryInfoDO {
     @Column
     private Timestamp createTime;
     /**
-     * 更新人
+     * 修改人
      */
     @Column
     private Long updateBy;
     /**
-     * 更新时间
+     * 修改时间
      */
     @Column
     private Timestamp updateTime;
@@ -70,6 +91,22 @@ public class IndustryInfoDO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getStuUniCode() {
+        return stuUniCode;
+    }
+
+    public void setStuUniCode(Long stuUniCode) {
+        this.stuUniCode = stuUniCode;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     public Integer getIndustryCode() {
@@ -88,28 +125,44 @@ public class IndustryInfoDO {
         this.industryName = industryName;
     }
 
-    public Integer getIndustryCategoryCode() {
-        return industryCategoryCode;
+    public Integer getJobType() {
+        return jobType;
     }
 
-    public void setIndustryCategoryCode(Integer industryCategoryCode) {
-        this.industryCategoryCode = industryCategoryCode;
+    public void setJobType(Integer jobType) {
+        this.jobType = jobType;
     }
 
-    public String getIndustryCategoryName() {
-        return industryCategoryName;
+    public String getJobAddress() {
+        return jobAddress;
     }
 
-    public void setIndustryCategoryName(String industryCategoryName) {
-        this.industryCategoryName = industryCategoryName;
+    public void setJobAddress(String jobAddress) {
+        this.jobAddress = jobAddress;
     }
 
-    public Integer getIndustryLevel() {
-        return industryLevel;
+    public BigDecimal getJobMinSalary() {
+        return jobMinSalary;
     }
 
-    public void setIndustryLevel(Integer industryLevel) {
-        this.industryLevel = industryLevel;
+    public void setJobMinSalary(BigDecimal jobMinSalary) {
+        this.jobMinSalary = jobMinSalary;
+    }
+
+    public BigDecimal getJobMaxSalary() {
+        return jobMaxSalary;
+    }
+
+    public void setJobMaxSalary(BigDecimal jobMaxSalary) {
+        this.jobMaxSalary = jobMaxSalary;
+    }
+
+    public Integer getJobSearchStatus() {
+        return jobSearchStatus;
+    }
+
+    public void setJobSearchStatus(Integer jobSearchStatus) {
+        this.jobSearchStatus = jobSearchStatus;
     }
 
     public Integer getDeleted() {

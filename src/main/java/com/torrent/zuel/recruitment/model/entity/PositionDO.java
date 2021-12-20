@@ -15,11 +15,6 @@ public class PositionDO {
     @Column
     private Long id;
     /**
-     * 岗位id
-     */
-    @Column
-    private Long jobId;
-    /**
      * 公司编码
      */
     @Column
@@ -38,9 +33,14 @@ public class PositionDO {
      * 岗位类型
      */
     @Column
-    private String jobType;
+    private Integer jobType;
     /**
-     * 岗位要求年限
+     * 岗位地点
+     */
+    @Column
+    private Integer jobAddress;
+    /**
+     * 学历(1:博士;2:硕士;3:学士;4:专科;5:高中及以下)
      */
     @Column
     private Integer educationLevel;
@@ -100,6 +100,21 @@ public class PositionDO {
     @Column
     private Integer deleted;
     /**
+     * 公司类型
+     */
+    @Column
+    private Integer comType;
+    /**
+     * 公司规模
+     */
+    @Column
+    private Integer comSize;
+    /**
+     * 公司规模
+     */
+    @Column
+    private Integer jobIndustry;
+    /**
      * 创建人
      */
     @Column
@@ -128,14 +143,6 @@ public class PositionDO {
         this.id = id;
     }
 
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
     public Long getComUniCode() {
         return comUniCode;
     }
@@ -160,20 +167,28 @@ public class PositionDO {
         this.jobWorkPlace = jobWorkPlace;
     }
 
-    public String getJobType() {
+    public Integer getJobType() {
         return jobType;
     }
 
-    public void setJobType(String jobType) {
+    public void setJobType(Integer jobType) {
         this.jobType = jobType;
     }
 
-    public void setEducationLevel(Integer educationLevel) {
-        this.educationLevel = educationLevel;
+    public Integer getJobAddress() {
+        return jobAddress;
+    }
+
+    public void setJobAddress(Integer jobAddress) {
+        this.jobAddress = jobAddress;
     }
 
     public Integer getEducationLevel() {
         return educationLevel;
+    }
+
+    public void setEducationLevel(Integer educationLevel) {
+        this.educationLevel = educationLevel;
     }
 
     public Integer getJobWorkBeginYear() {
@@ -262,6 +277,30 @@ public class PositionDO {
 
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
+    }
+
+    public Integer getComType() {
+        return comType;
+    }
+
+    public void setComType(Integer comType) {
+        this.comType = comType;
+    }
+
+    public Integer getComSize() {
+        return comSize;
+    }
+
+    public void setComSize(Integer comSize) {
+        this.comSize = comSize;
+    }
+
+    public void setJobIndustry(Integer jobIndustry) {
+        this.jobIndustry = jobIndustry;
+    }
+
+    public Integer getJobIndustry() {
+        return jobIndustry;
     }
 
     public Long getCreateBy() {

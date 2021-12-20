@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.github.wz2cool.dynamic.builder.DynamicQueryBuilderHelper.contains;
 import static com.github.wz2cool.dynamic.builder.DynamicQueryBuilderHelper.in;
 
 /**
@@ -31,6 +32,14 @@ public class ComInfoDAO {
     public List<ComInfoDO> listComInfoDO(List<Long> comUniCodeList) {
         DynamicQuery<ComInfoDO> query = DynamicQuery.createQuery(ComInfoDO.class)
                 .and(ComInfoDO::getComUniCode, in(comUniCodeList));
+        return comInfoMapper.selectByDynamicQuery(query);
+    }
+
+    public List<ComInfoDO> listComInfoByComChiName(String ComChiName) {
+        DynamicQuery<ComInfoDO> query = DynamicQuery.createQuery(ComInfoDO.class)
+                .select(ComInfoDO::getComUniCode, ComInfoDO::getComChiName, ComInfoDO::getComChiShortName)
+                .and(g -> g.or(ComInfoDO::getComChiName, contains(ComChiName))
+                        .or(ComInfoDO::getComChiShortName, contains(ComChiName)));
         return comInfoMapper.selectByDynamicQuery(query);
     }
 }

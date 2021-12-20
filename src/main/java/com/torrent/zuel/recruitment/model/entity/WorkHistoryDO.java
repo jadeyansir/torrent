@@ -1,18 +1,36 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.sql.*;
+import javax.persistence.*;
 
-@Table(name = "industry_info")
-public class IndustryInfoDO {
+@Table(name = "work_history")
+public class WorkHistoryDO {
     /**
      * 主键id
      */
     @Id
     @Column
     private Long id;
+    /**
+     * 学号
+     */
+    @Column
+    private Long stuUniCode;
+    /**
+     * 公司编码
+     */
+    @Column
+    private Long comUniCode;
+    /**
+     * 公司名称
+     */
+    @Column
+    private String comChiName;
+    /**
+     * 公司简称
+     */
+    @Column
+    private String comChiShortName;
     /**
      * 行业编码
      */
@@ -24,20 +42,25 @@ public class IndustryInfoDO {
     @Column
     private String industryName;
     /**
-     * 行业分类编码
+     * 月薪
      */
     @Column
-    private Integer industryCategoryCode;
+    private Integer monthlySalary;
     /**
-     * 行业名称
+     * 工作开始时间
      */
     @Column
-    private String industryCategoryName;
+    private Date jobWorkBeginTime;
     /**
-     * 行业级别: 1： 一级行业; 2: 二级行业
+     * 工作结束时间
      */
     @Column
-    private Integer industryLevel;
+    private Date jobWorkEndTime;
+    /**
+     * 职位描述
+     */
+    @Column
+    private String jobDetail;
     /**
      * 是否删除：0： 未删除。 1： 已删除
      */
@@ -72,6 +95,38 @@ public class IndustryInfoDO {
         this.id = id;
     }
 
+    public Long getStuUniCode() {
+        return stuUniCode;
+    }
+
+    public void setStuUniCode(Long stuUniCode) {
+        this.stuUniCode = stuUniCode;
+    }
+
+    public Long getComUniCode() {
+        return comUniCode;
+    }
+
+    public void setComUniCode(Long comUniCode) {
+        this.comUniCode = comUniCode;
+    }
+
+    public String getComChiName() {
+        return comChiName;
+    }
+
+    public void setComChiName(String comChiName) {
+        this.comChiName = comChiName;
+    }
+
+    public String getComChiShortName() {
+        return comChiShortName;
+    }
+
+    public void setComChiShortName(String comChiShortName) {
+        this.comChiShortName = comChiShortName;
+    }
+
     public Integer getIndustryCode() {
         return industryCode;
     }
@@ -88,28 +143,36 @@ public class IndustryInfoDO {
         this.industryName = industryName;
     }
 
-    public Integer getIndustryCategoryCode() {
-        return industryCategoryCode;
+    public Integer getMonthlySalary() {
+        return monthlySalary;
     }
 
-    public void setIndustryCategoryCode(Integer industryCategoryCode) {
-        this.industryCategoryCode = industryCategoryCode;
+    public void setMonthlySalary(Integer monthlySalary) {
+        this.monthlySalary = monthlySalary;
     }
 
-    public String getIndustryCategoryName() {
-        return industryCategoryName;
+    public Date getJobWorkBeginTime() {
+        return jobWorkBeginTime == null ? null : new Date(jobWorkBeginTime.getTime());
     }
 
-    public void setIndustryCategoryName(String industryCategoryName) {
-        this.industryCategoryName = industryCategoryName;
+    public void setJobWorkBeginTime(Date jobWorkBeginTime) {
+        this.jobWorkBeginTime = jobWorkBeginTime == null ? null : new Date(jobWorkBeginTime.getTime());
     }
 
-    public Integer getIndustryLevel() {
-        return industryLevel;
+    public Date getJobWorkEndTime() {
+        return jobWorkEndTime == null ? null : new Date(jobWorkEndTime.getTime());
     }
 
-    public void setIndustryLevel(Integer industryLevel) {
-        this.industryLevel = industryLevel;
+    public void setJobWorkEndTime(Date jobWorkEndTime) {
+        this.jobWorkEndTime = jobWorkEndTime == null ? null : new Date(jobWorkEndTime.getTime());
+    }
+
+    public String getJobDetail() {
+        return jobDetail;
+    }
+
+    public void setJobDetail(String jobDetail) {
+        this.jobDetail = jobDetail;
     }
 
     public Integer getDeleted() {

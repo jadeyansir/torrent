@@ -1,12 +1,10 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.sql.*;
+import javax.persistence.*;
 
-@Table(name = "industry_info")
-public class IndustryInfoDO {
+@Table(name = "language_skills")
+public class LanguageSkillsDO {
     /**
      * 主键id
      */
@@ -14,30 +12,25 @@ public class IndustryInfoDO {
     @Column
     private Long id;
     /**
-     * 行业编码
+     * 学号
      */
     @Column
-    private Integer industryCode;
+    private Long stuUniCode;
     /**
-     * 行业名称
+     * 语种
      */
     @Column
-    private String industryName;
+    private String languageType;
     /**
-     * 行业分类编码
+     * 听说能力
      */
     @Column
-    private Integer industryCategoryCode;
+    private String listenSpeakSkills;
     /**
-     * 行业名称
+     * 读写能力
      */
     @Column
-    private String industryCategoryName;
-    /**
-     * 行业级别: 1： 一级行业; 2: 二级行业
-     */
-    @Column
-    private Integer industryLevel;
+    private String readWriteSkills;
     /**
      * 是否删除：0： 未删除。 1： 已删除
      */
@@ -72,44 +65,36 @@ public class IndustryInfoDO {
         this.id = id;
     }
 
-    public Integer getIndustryCode() {
-        return industryCode;
+    public Long getStuUniCode() {
+        return stuUniCode;
     }
 
-    public void setIndustryCode(Integer industryCode) {
-        this.industryCode = industryCode;
+    public void setStuUniCode(Long stuUniCode) {
+        this.stuUniCode = stuUniCode;
     }
 
-    public String getIndustryName() {
-        return industryName;
+    public String getLanguageType() {
+        return languageType;
     }
 
-    public void setIndustryName(String industryName) {
-        this.industryName = industryName;
+    public void setLanguageType(String languageType) {
+        this.languageType = languageType;
     }
 
-    public Integer getIndustryCategoryCode() {
-        return industryCategoryCode;
+    public String getListenSpeakSkills() {
+        return listenSpeakSkills;
     }
 
-    public void setIndustryCategoryCode(Integer industryCategoryCode) {
-        this.industryCategoryCode = industryCategoryCode;
+    public void setListenSpeakSkills(String listenSpeakSkills) {
+        this.listenSpeakSkills = listenSpeakSkills;
     }
 
-    public String getIndustryCategoryName() {
-        return industryCategoryName;
+    public String getReadWriteSkills() {
+        return readWriteSkills;
     }
 
-    public void setIndustryCategoryName(String industryCategoryName) {
-        this.industryCategoryName = industryCategoryName;
-    }
-
-    public Integer getIndustryLevel() {
-        return industryLevel;
-    }
-
-    public void setIndustryLevel(Integer industryLevel) {
-        this.industryLevel = industryLevel;
+    public void setReadWriteSkills(String readWriteSkills) {
+        this.readWriteSkills = readWriteSkills;
     }
 
     public Integer getDeleted() {
