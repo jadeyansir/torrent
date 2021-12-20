@@ -1,28 +1,41 @@
 package com.torrent.zuel.recruitment.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.sql.*;
+import javax.persistence.*;
 
-@Table(name = "industry")
-public class IndustryDO {
+@Table(name = "professional_skills")
+public class ProfessionalSkillsDO {
     /**
-     * 主键
+     * 主键id
      */
     @Id
     @Column
     private Long id;
     /**
-     * 行业编码
+     * 学号
      */
     @Column
-    private Long industryUniCode;
+    private Long stuUniCode;
     /**
-     * 行业信息
+     * 技能名称
      */
     @Column
-    private String industryInfo;
+    private String skillName;
+    /**
+     * 使用时长
+     */
+    @Column
+    private Integer useTime;
+    /**
+     * 掌握程度
+     */
+    @Column
+    private Integer masteryLevel;
+    /**
+     * 是否删除：0： 未删除。 1： 已删除
+     */
+    @Column
+    private Integer deleted;
     /**
      * 创建人
      */
@@ -34,12 +47,12 @@ public class IndustryDO {
     @Column
     private Timestamp createTime;
     /**
-     * 修改人
+     * 更新人
      */
     @Column
     private Long updateBy;
     /**
-     * 修改时间
+     * 更新时间
      */
     @Column
     private Timestamp updateTime;
@@ -52,20 +65,44 @@ public class IndustryDO {
         this.id = id;
     }
 
-    public Long getIndustryUniCode() {
-        return industryUniCode;
+    public Long getStuUniCode() {
+        return stuUniCode;
     }
 
-    public void setIndustryUniCode(Long industryUniCode) {
-        this.industryUniCode = industryUniCode;
+    public void setStuUniCode(Long stuUniCode) {
+        this.stuUniCode = stuUniCode;
     }
 
-    public String getIndustryInfo() {
-        return industryInfo;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public void setIndustryInfo(String industryInfo) {
-        this.industryInfo = industryInfo;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
+    }
+
+    public Integer getUseTime() {
+        return useTime;
+    }
+
+    public void setUseTime(Integer useTime) {
+        this.useTime = useTime;
+    }
+
+    public Integer getMasteryLevel() {
+        return masteryLevel;
+    }
+
+    public void setMasteryLevel(Integer masteryLevel) {
+        this.masteryLevel = masteryLevel;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     public Long getCreateBy() {

@@ -1,12 +1,15 @@
 package com.torrent.zuel.recruitment.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.torrent.zuel.recruitment.dao.ComInfoDAO;
 import com.torrent.zuel.recruitment.dao.PositionDAO;
+import com.torrent.zuel.recruitment.dao.PublicDictDAO;
 import com.torrent.zuel.recruitment.model.dto.request.PositionRequestDTO;
 import com.torrent.zuel.recruitment.model.dto.response.PositionResponseDTO;
 import com.torrent.zuel.recruitment.model.entity.ComInfoDO;
 import com.torrent.zuel.recruitment.model.entity.PositionDO;
+import com.torrent.zuel.recruitment.model.entity.PublicDictDO;
 import com.torrent.zuel.recruitment.service.PositionService;
 import com.torrent.zuel.recruitment.util.BeanCopyUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -32,13 +35,16 @@ public class PositionServiceImpl implements PositionService {
     private PositionDAO positionDAO;
     @Resource
     private ComInfoDAO comInfoDAO;
+    @Resource
+    private PublicDictDAO publicDictDAO;
 
     @Override
     public PageInfo<PositionResponseDTO> listPositionByPaging(PositionRequestDTO positionRequestDTO) {
         if (Objects.isNull(positionRequestDTO)) {
             return new PageInfo<>();
         }
-        PageInfo<PositionDO> positionByPaging = positionDAO.getPositionByPaging(positionRequestDTO);
+        List<PublicDictDO> publicDictDOList = publicDictDAO.publicDictDOList(Lists.newArrayList());
+        PageInfo<PositionDO> positionByPaging = positionDAO.getPositionByPaging(positionRequestDTO, publicDictDOList);
         List<PositionDO> positionDOList = positionByPaging.getList().stream()
                 .filter(x -> Objects.nonNull(x.getComUniCode())).collect(Collectors.toList());
         List<PositionResponseDTO> positionResponseDTOList = BeanCopyUtils.copyList(positionDOList, PositionResponseDTO.class);

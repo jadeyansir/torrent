@@ -15,26 +15,26 @@ import java.util.Objects;
 public class IndustryTreeInfoResponseDTO {
 
     @ApiModelProperty("行业唯一编码")
-    private Long induUniCode;
+    private Integer industryCode;
     @ApiModelProperty("行业名称")
-    private String induName;
+    private String industryName;
     @ApiModelProperty("子类行业")
     private List<IndustryTreeInfoResponseDTO> childInfoList;
 
-    public Long getInduUniCode() {
-        return induUniCode;
+    public Integer getIndustryCode() {
+        return industryCode;
     }
 
-    public void setInduUniCode(Long induUniCode) {
-        this.induUniCode = induUniCode;
+    public void setIndustryCode(Integer industryCode) {
+        this.industryCode = industryCode;
     }
 
-    public String getInduName() {
-        return induName;
+    public String getIndustryName() {
+        return industryName;
     }
 
-    public void setInduName(String induName) {
-        this.induName = induName;
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
     }
 
     public List<IndustryTreeInfoResponseDTO> getChildInfoList() {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.torrent.zuel.recruitment.mapper.mybatis.ProjectHistoryMapper">
+
+    <select id="listProjectHistory" parameterType="java.util.List" resultType="com.torrent.zuel.recruitment.model.entity.ProjectHistoryDO">
+        select *
+        from project_history
+        where stu_uni_code = #{stuUniCode}
+    </select>
+</mapper>

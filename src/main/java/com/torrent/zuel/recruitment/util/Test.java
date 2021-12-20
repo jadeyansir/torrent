@@ -7,4 +7,7 @@ package com.torrent.zuel.recruitment.util;
  * @date 2021/12/19
  */
 public class Test {
+    public static void main(String[] args) {
+        
+    }
 }

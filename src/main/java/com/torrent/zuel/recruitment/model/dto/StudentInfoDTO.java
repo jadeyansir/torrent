@@ -22,6 +22,10 @@ public class StudentInfoDTO {
     private String stuOriginPlace;
     @ApiModelProperty("政治面貌")
     private String stuPolity;
+    @ApiModelProperty("学校编码")
+    private Long collegeUniCode;
+    @ApiModelProperty("学校名称")
+    private String collegeChiName;
     @ApiModelProperty("所在院系")
     private String stuAcademy;
     @ApiModelProperty("专业")
@@ -123,6 +127,22 @@ public class StudentInfoDTO {
 
     public void setStuPolity(String stuPolity) {
         this.stuPolity = stuPolity;
+    }
+
+    public Long getCollegeUniCode() {
+        return collegeUniCode;
+    }
+
+    public void setCollegeUniCode(Long collegeUniCode) {
+        this.collegeUniCode = collegeUniCode;
+    }
+
+    public String getCollegeChiName() {
+        return collegeChiName;
+    }
+
+    public void setCollegeChiName(String collegeChiName) {
+        this.collegeChiName = collegeChiName;
     }
 
     public String getStuAcademy() {

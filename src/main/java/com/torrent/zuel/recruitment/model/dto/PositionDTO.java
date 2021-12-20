@@ -15,7 +15,9 @@ public class PositionDTO {
     @ApiModelProperty("工作单位")
     private String jobWorkPlace;
     @ApiModelProperty("岗位类型")
-    private String jobType;
+    private Integer jobType;
+    @ApiModelProperty("岗位地点")
+    private Integer jobAddress;
     @ApiModelProperty("学历(1:博士;2:硕士;3:学士;4:专科;5:高中及以下)")
     private Integer educationLevel;
     @ApiModelProperty("岗位要求年限")
@@ -40,6 +42,12 @@ public class PositionDTO {
     private Integer approvalStatus;
     @ApiModelProperty("是否删除:0表示没有删除,1表示删除")
     private Integer deleted;
+    @ApiModelProperty("公司类型")
+    private Integer comType;
+    @ApiModelProperty("公司规模")
+    private Integer comSize;
+    @ApiModelProperty("行业")
+    private Integer jobIndustry;
     @ApiModelProperty("创建人")
     private Long createBy;
     @ApiModelProperty("创建时间")
@@ -81,20 +89,28 @@ public class PositionDTO {
         this.jobWorkPlace = jobWorkPlace;
     }
 
-    public String getJobType() {
+    public Integer getJobType() {
         return jobType;
     }
 
-    public void setJobType(String jobType) {
+    public void setJobType(Integer jobType) {
         this.jobType = jobType;
     }
 
-    public void setEducationLevel(Integer educationLevel) {
-        this.educationLevel = educationLevel;
+    public Integer getJobAddress() {
+        return jobAddress;
+    }
+
+    public void setJobAddress(Integer jobAddress) {
+        this.jobAddress = jobAddress;
     }
 
     public Integer getEducationLevel() {
         return educationLevel;
+    }
+
+    public void setEducationLevel(Integer educationLevel) {
+        this.educationLevel = educationLevel;
     }
 
     public Integer getJobWorkBeginYear() {
@@ -183,6 +199,30 @@ public class PositionDTO {
 
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
+    }
+
+    public Integer getComType() {
+        return comType;
+    }
+
+    public void setComType(Integer comType) {
+        this.comType = comType;
+    }
+
+    public Integer getComSize() {
+        return comSize;
+    }
+
+    public void setComSize(Integer comSize) {
+        this.comSize = comSize;
+    }
+
+    public void setJobIndustry(Integer jobIndustry) {
+        this.jobIndustry = jobIndustry;
+    }
+
+    public Integer getJobIndustry() {
+        return jobIndustry;
     }
 
     public Long getCreateBy() {
