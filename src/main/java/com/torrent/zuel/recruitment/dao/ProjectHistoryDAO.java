@@ -22,4 +22,8 @@ public class ProjectHistoryDAO {
     public List<ProjectHistoryDO> listProjectHistory(Long stuUniCode) {
         return projectHistoryMapper.listProjectHistory(stuUniCode);
     }
+
+    public Integer insertProjectHistory(ProjectHistoryDO projectHistoryDO) {
+        return projectHistoryMapper.insertProjectHistory(projectHistoryDO);
+    }
 }

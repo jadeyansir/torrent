@@ -150,4 +150,16 @@ public class ResumeServiceImpl implements ResumeService {
         List<ProjectHistoryDTO> projectHistoryDTOList = BeanCopyUtils.copyList(projectHistoryDOList, ProjectHistoryDTO.class);
         return projectHistoryDTOList;
     }
+
+    @Override
+    public Integer insertProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail) {
+        ProjectHistoryDO projectHistoryDO = new ProjectHistoryDO();
+        projectHistoryDO.setStuUniCode(stuUniCode);
+        projectHistoryDO.setProjectName(projectName);
+        projectHistoryDO.setProjectBeginTime(projectBeginTime);
+        projectHistoryDO.setProjectEndTime(projectEndTime);
+        projectHistoryDO.setProjectDetail(projectDetail);
+        Integer integer = projectHistoryDAO.insertProjectHistory(projectHistoryDO);
+        return integer;
+    }
 }
