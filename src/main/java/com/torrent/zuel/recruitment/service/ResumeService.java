@@ -36,4 +36,5 @@ public interface ResumeService {
 
     List<ProjectHistoryDTO> listProjectHistory(Long stuUniCode);
 
+    Integer insertProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail);
 }

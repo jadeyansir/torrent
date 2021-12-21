@@ -150,9 +150,22 @@ public class ResumeController {
     //            jobDetail, monthlySalary, projectBeginTime, projectEndTime));
     //}
     @ApiOperation("查询项目经历")
-    @GetMapping("/get/project/work")
+    @GetMapping("/get/project/history")
     public RestResponse<List<ProjectHistoryDTO>> listProjectHistory(
             @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode) {
-        return RestResponse.Success(resumeService.listProjectHistory(stuUniCode));
+        return RestResponse.Success("查询成功", resumeService.listProjectHistory(stuUniCode));
     }
+
+    @ApiOperation("新增项目经历")
+    @GetMapping("/insert/project/history")
+    public RestResponse<Integer> insertProjectHistory(
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name = "projectName", value = "项目名称") @RequestParam String projectName,
+            @ApiParam(name = "projectBeginTime", value = "项目开始时间") @RequestParam Date projectBeginTime,
+            @ApiParam(name = "projectEndTime", value = "项目结束时间") @RequestParam Date projectEndTime,
+            @ApiParam(name = "projectDetail", value = "项目描述") @RequestParam String projectDetail) {
+        return RestResponse.Success(resumeService.insertProjectHistory(
+                stuUniCode, projectName, projectBeginTime, projectEndTime, projectDetail));
+    }
+
 }
