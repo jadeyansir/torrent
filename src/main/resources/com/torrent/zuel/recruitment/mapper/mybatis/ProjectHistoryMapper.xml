@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.torrent.zuel.recruitment.mapper.mybatis.ProjectHistoryMapper">
+    <insert id="insertProjectHistory" parameterType="com.torrent.zuel.recruitment.model.entity.ProjectHistoryDO">
+        insert into project_history(stu_uni_code, project_name, project_begin_time, project_end_time, project_detail)
+        values (#{stuUniCode}, #{projectName}, #{projectBeginTime}, #{projectEndTime}, #{projectDetail})
+    </insert>
 
     <select id="listProjectHistory" parameterType="java.util.List" resultType="com.torrent.zuel.recruitment.model.entity.ProjectHistoryDO">
         select *

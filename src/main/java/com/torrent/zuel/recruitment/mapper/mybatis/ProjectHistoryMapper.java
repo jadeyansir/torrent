@@ -16,4 +16,5 @@ import java.util.List;
 public interface ProjectHistoryMapper {
     List<ProjectHistoryDO> listProjectHistory(@Param("stuUniCode") Long stuUniCode);
 
+    Integer insertProjectHistory(ProjectHistoryDO projectHistoryDO);
 }
