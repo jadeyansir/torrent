@@ -26,4 +26,8 @@ public class ProjectHistoryDAO {
     public Integer insertProjectHistory(ProjectHistoryDO projectHistoryDO) {
         return projectHistoryMapper.insertProjectHistory(projectHistoryDO);
     }
+
+    public Integer updateProjectHistory(ProjectHistoryDO projectHistoryDO) {
+        return projectHistoryMapper.updateProjectHistory(projectHistoryDO);
+    }
 }

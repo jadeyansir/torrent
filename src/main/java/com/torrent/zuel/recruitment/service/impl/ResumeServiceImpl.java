@@ -162,4 +162,16 @@ public class ResumeServiceImpl implements ResumeService {
         Integer integer = projectHistoryDAO.insertProjectHistory(projectHistoryDO);
         return integer;
     }
+
+    @Override
+    public Integer updateProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail) {
+        ProjectHistoryDO projectHistoryDO = new ProjectHistoryDO();
+        projectHistoryDO.setStuUniCode(stuUniCode);
+        projectHistoryDO.setProjectName(projectName);
+        projectHistoryDO.setProjectBeginTime(projectBeginTime);
+        projectHistoryDO.setProjectEndTime(projectEndTime);
+        projectHistoryDO.setProjectDetail(projectDetail);
+        Integer integer = projectHistoryDAO.insertProjectHistory(projectHistoryDO);
+        return integer;
+    }
 }

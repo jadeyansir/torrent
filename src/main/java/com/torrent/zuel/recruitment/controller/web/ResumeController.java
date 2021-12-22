@@ -168,4 +168,17 @@ public class ResumeController {
                 stuUniCode, projectName, projectBeginTime, projectEndTime, projectDetail));
     }
 
+    @ApiOperation("修改项目经历")
+    @GetMapping("/update/project/history")
+    public RestResponse<Integer> updateProjectHistory(
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name = "projectName", value = "项目名称") @RequestParam String projectName,
+            @ApiParam(name = "projectBeginTime", value = "项目开始时间") @RequestParam Date projectBeginTime,
+            @ApiParam(name = "projectEndTime", value = "项目结束时间") @RequestParam Date projectEndTime,
+            @ApiParam(name = "projectDetail", value = "项目描述") @RequestParam String projectDetail
+    ){
+       return RestResponse.Success(resumeService.updateProjectHistory(
+               stuUniCode, projectName, projectBeginTime, projectEndTime, projectDetail));
+    }
+
 }
