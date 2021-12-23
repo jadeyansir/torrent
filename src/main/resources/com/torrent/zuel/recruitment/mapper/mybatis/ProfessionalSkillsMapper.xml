@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.torrent.zuel.recruitment.mapper.mybatis.ProfessionalSkillsMapper">
+        <insert id="insertProfessionalSkills" parameterType="com.torrent.zuel.recruitment.model.entity.ProfessionalSkillsDO">
+            insert into professional_skills(stu_uni_code,skill_name,use_time,mastery_level)
+            values (#{stuUniCode},#{skillName},#{useTime},#{masteryLevel})
+        </insert>
+
+        <update id="updateProfessionalSkills" parameterType="com.torrent.zuel.recruitment.model.entity.ProfessionalSkillsDO">
+            update professional_skills
+            <set>
+                <if test="skillName!=null">skill_name=#{skillName},</if>
+                <if test="useTime!=null">use_time=#{useTime},</if>
+                <if test="masteryLevel!=null">mastery_level=#{masteryLevel}, </if>
+            </set>
+            where stu_uni_code=#{stuUniCode}
+        </update>
+
+        <delete id="deleteProfessionalSkills" parameterType="com.torrent.zuel.recruitment.model.entity.ProfessionalSkillsDO">
+            delete from professional_skills where stu_uni_code=#{stuUniCode} And skill_name=#{skillName}
+        </delete>
+    </mapper>

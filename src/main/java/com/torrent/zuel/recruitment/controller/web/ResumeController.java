@@ -181,4 +181,35 @@ public class ResumeController {
                stuUniCode, projectName, projectBeginTime, projectEndTime, projectDetail));
     }
 
+    @ApiOperation("新增专业技能")
+    @GetMapping("/insert/profession/skill")
+    public RestResponse<Integer> insertProfessionalSkills(
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name = "skillName", value = "技能名称") @RequestParam String skillName,
+            @ApiParam(name = "useTime", value = "掌握时间") @RequestParam Integer useTime,
+            @ApiParam(name = "masteryLevel", value = "掌握程度") @RequestParam Integer masteryLevel
+    ){
+        return RestResponse.Success(resumeService.insertProfessionalSkills(stuUniCode, skillName, useTime, masteryLevel));
+    }
+
+    @ApiOperation("更新专业技能")
+    @GetMapping("/update/profession/skill")
+    public RestResponse<Integer> updateProfessionalSkills(
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name = "skillName", value = "技能名称") @RequestParam String skillName,
+            @ApiParam(name = "useTime", value = "掌握时间") @RequestParam Integer useTime,
+            @ApiParam(name = "masteryLevel", value = "掌握程度") @RequestParam Integer masteryLevel
+    ){
+        return RestResponse.Success(resumeService.updateProfessionalSkills(stuUniCode, skillName, useTime, masteryLevel));
+    }
+
+    @ApiOperation("删除专业技能")
+    @GetMapping("/delete/profession/skill")
+    public RestResponse<Integer> updateProfessionalSkills(
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name = "skillName", value = "技能名称") @RequestParam String skillName
+    ){
+        return RestResponse.Success(resumeService.deleteProfessionalSkills(stuUniCode,skillName));
+    }
+
 }
