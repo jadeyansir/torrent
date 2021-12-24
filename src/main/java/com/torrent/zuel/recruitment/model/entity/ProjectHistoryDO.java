@@ -24,6 +24,11 @@ public class ProjectHistoryDO {
     @Column
     @ApiModelProperty("学号")
     private Long stuUniCode;
+    @Column
+    private Long zdlDoTest;
+
+
+
     /**
      * 公司编码
      */

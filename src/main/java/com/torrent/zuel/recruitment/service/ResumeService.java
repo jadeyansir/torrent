@@ -37,4 +37,11 @@ public interface ResumeService {
     List<ProjectHistoryDTO> listProjectHistory(Long stuUniCode);
 
     Integer insertProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail);
+
+    Integer updateProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail);
+
+//    对专业技能的操作
+    Integer insertProfessionalSkills(Long stuUniCode,String skillName,Integer useTime,Integer masteryLevel);
+    Integer updateProfessionalSkills(Long stuUniCode,String skillName,Integer useTime,Integer masteryLevel);
+    Integer deleteProfessionalSkills(Long stuUniCode, String skillName);
 }
