@@ -9,8 +9,20 @@
     </insert>
 
     <update id="updateProjectHistory" parameterType="com.torrent.zuel.recruitment.model.entity.ProjectHistoryDO">
-        updateshere
+        update project_history
+        <set>
+            <if test="projectName!=null">project_name=#{projectName},</if>
+            <if test="projectBeginTime!=null">project_begin_time=#{projectBeginTime},</if>
+            <if test="projectDetail!=null">project_detail=#{projectDetail},</if>
+            <if test="projectEndTime!=null">project_end_time=#{projectEndTime},</if>
+        </set>
+        where id=#{id}
     </update>
+    <delete id="deleteProjectHistory" parameterType="java.lang.Long">
+        delete
+        from project_history
+        where id = #{id}
+    </delete>
 
     <select id="listProjectHistory" parameterType="java.util.List" resultType="com.torrent.zuel.recruitment.model.entity.ProjectHistoryDO">
         select *

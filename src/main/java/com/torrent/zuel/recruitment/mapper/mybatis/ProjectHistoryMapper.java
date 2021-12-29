@@ -19,4 +19,6 @@ public interface ProjectHistoryMapper {
     Integer insertProjectHistory(ProjectHistoryDO projectHistoryDO);
 
     Integer updateProjectHistory(ProjectHistoryDO projectHistoryDO);
+
+    Integer deleteProjectHistory(Long id);
 }

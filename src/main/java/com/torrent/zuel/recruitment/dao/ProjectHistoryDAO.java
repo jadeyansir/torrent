@@ -30,4 +30,8 @@ public class ProjectHistoryDAO {
     public Integer updateProjectHistory(ProjectHistoryDO projectHistoryDO) {
         return projectHistoryMapper.updateProjectHistory(projectHistoryDO);
     }
+
+    public Integer deleteProjectHistory(Long id) {
+        return projectHistoryMapper.deleteProjectHistory(id);
+    }
 }
