@@ -2,7 +2,6 @@ package com.torrent.zuel.recruitment.mapper.mybatis;
 
 import com.torrent.zuel.recruitment.model.entity.ProfessionalSkillsDO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ProfessionalSkillsMapper {
@@ -10,5 +9,5 @@ public interface ProfessionalSkillsMapper {
 
     Integer updateProfessionalSkills(ProfessionalSkillsDO professionalSkillsDO);
 
-    Integer deleteProfessionalSkills(ProfessionalSkillsDO professionalSkillsDO);
+    Integer deleteProfessionalSkills(Long id);
 }

@@ -167,47 +167,51 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Integer updateProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail) {
+    public Integer updateProjectHistory(Long id, Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail) {
         ProjectHistoryDO projectHistoryDO = new ProjectHistoryDO();
+        projectHistoryDO.setId(id);
         projectHistoryDO.setStuUniCode(stuUniCode);
         projectHistoryDO.setProjectName(projectName);
         projectHistoryDO.setProjectBeginTime(projectBeginTime);
         projectHistoryDO.setProjectEndTime(projectEndTime);
         projectHistoryDO.setProjectDetail(projectDetail);
-        Integer integer = projectHistoryDAO.insertProjectHistory(projectHistoryDO);
+        Integer integer = projectHistoryDAO.updateProjectHistory(projectHistoryDO);
         return integer;
     }
 
+    @Override
+    public Integer deleteProjectHistory(Long id) {
+        Integer integer = projectHistoryDAO.deleteProjectHistory(id);
+        return integer;
+    }
 
-//    对专业技能的操作
+    //    对专业技能的操作
     @Override
     public Integer insertProfessionalSkills(Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel) {
-        ProfessionalSkillsDO professionalSkillsDO=new ProfessionalSkillsDO();
+        ProfessionalSkillsDO professionalSkillsDO = new ProfessionalSkillsDO();
         professionalSkillsDO.setStuUniCode(stuUniCode);
         professionalSkillsDO.setSkillName(skillName);
         professionalSkillsDO.setUseTime(useTime);
         professionalSkillsDO.setMasteryLevel(masteryLevel);
-        Integer integer=professionalSkillsDAO.insertProfessionalSkills(professionalSkillsDO);
+        Integer integer = professionalSkillsDAO.insertProfessionalSkills(professionalSkillsDO);
         return integer;
     }
 
     @Override
-    public Integer updateProfessionalSkills(Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel) {
-        ProfessionalSkillsDO professionalSkillsDO=new ProfessionalSkillsDO();
+    public Integer updateProfessionalSkills(Long id, Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel) {
+        ProfessionalSkillsDO professionalSkillsDO = new ProfessionalSkillsDO();
+        professionalSkillsDO.setId(id);
         professionalSkillsDO.setStuUniCode(stuUniCode);
         professionalSkillsDO.setSkillName(skillName);
         professionalSkillsDO.setUseTime(useTime);
         professionalSkillsDO.setMasteryLevel(masteryLevel);
-        Integer integer=professionalSkillsDAO.updateProfessionalSkills(professionalSkillsDO);
+        Integer integer = professionalSkillsDAO.updateProfessionalSkills(professionalSkillsDO);
         return integer;
     }
 
     @Override
-    public Integer deleteProfessionalSkills(Long stuUniCode, String skillName) {
-        ProfessionalSkillsDO professionalSkillsDO=new ProfessionalSkillsDO();
-        professionalSkillsDO.setStuUniCode(stuUniCode);
-        professionalSkillsDO.setSkillName(skillName);
-        Integer integer=professionalSkillsDAO.deleteProfessionalSkills(professionalSkillsDO);
+    public Integer deleteProfessionalSkills(Long id) {
+        Integer integer = professionalSkillsDAO.deleteProfessionalSkills(id);
         return integer;
     }
 }
