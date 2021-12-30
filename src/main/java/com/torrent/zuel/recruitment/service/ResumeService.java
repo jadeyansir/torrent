@@ -25,9 +25,11 @@ public interface ResumeService {
 
     Integer deleteJobExpect(Long id);
 
+    Integer getJobSearchStatus(Long stuUniCode);
+
     Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus);
 
-    JobExpectResponseDTO getResume(Long stuUniCode);
+    List<JobExpectResponseDTO> listJobExpect(Long stuUniCode);
 
     List<EducationHistoryResponseDTO> listEducationHistory(Long stuUniCode);
 
