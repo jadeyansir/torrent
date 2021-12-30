@@ -47,6 +47,9 @@ public class ResumeServiceImpl implements ResumeService {
     @Resource
     private ProfessionalSkillsDAO professionalSkillsDAO;
 
+    @Resource
+    private StudentOfficerDAO studentOfficerDAO;
+
     @Override
     public Integer modifyJobExpect(Long id, Long stuUniCode, String jobName, Integer industryCode,
                                    String jobAddress, Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary) {
@@ -275,4 +278,67 @@ public class ResumeServiceImpl implements ResumeService {
         Integer integer = professionalSkillsDAO.deleteProfessionalSkills(id);
         return integer;
     }
+
+    //对学生干部经历的操作
+    @Override
+    public Integer insertStudentOfficer(Long id,Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
+        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+        studentOfficerDO.setId(id);
+        studentOfficerDO.setStuUniCode(stuUniCode);
+        studentOfficerDO.setOfficerName(officerName);
+        studentOfficerDO.setServeBeginTime(serveBeginTime);
+        Integer integer=studentOfficerDAO.insertStudentOfficer(studentOfficerDO);
+        return integer;
+    }
+
+    @Override
+    public Integer updateStudentOfficer(Long id, String officerName, Date serveBeginTime, Date serveEndTime) {
+        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+        studentOfficerDO.setId(id);
+        studentOfficerDO.setOfficerName(officerName);
+        studentOfficerDO.setServeBeginTime(serveBeginTime);
+        Integer integer=studentOfficerDAO.updateStudentOfficer(studentOfficerDO);
+        return integer;
+
+    }
+
+    @Override
+    public Integer deleteStudentOfficer(Long id, String officerName) {
+        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+        studentOfficerDO.setId(id);
+        studentOfficerDO.setOfficerName(officerName);
+        Integer integer=studentOfficerDAO.deleteStudentOfficer(studentOfficerDO);
+        return integer;
+    }
+
+//    @Override
+//    public Integer insertStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
+//        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+//        studentOfficerDO.setStuUniCode(stuUniCode);
+//        studentOfficerDO.setOfficerName(officerName);
+//        studentOfficerDO.setServeBeginTime(serveBeginTime);
+//        Integer integer=studentOfficerDAO.insertStudentOfficer(studentOfficerDO);
+//        return integer;
+//    }
+//
+//    @Override
+//    public Integer updateStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
+//        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+//        studentOfficerDO.setStuUniCode(stuUniCode);
+//        studentOfficerDO.setOfficerName(officerName);
+//        studentOfficerDO.setServeBeginTime(serveBeginTime);
+//        Integer integer=studentOfficerDAO.updateStudentOfficer(studentOfficerDO);
+//        return integer;
+//
+//    }
+//
+//    @Override
+//    public Integer deleteStudentOfficer(Long stuUniCode, String officerName) {
+//        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+//        studentOfficerDO.setStuUniCode(stuUniCode);
+//        studentOfficerDO.setOfficerName(officerName);
+//        Integer integer=studentOfficerDAO.deleteStudentOfficer(studentOfficerDO);
+//        return integer;
+//    }
+
 }

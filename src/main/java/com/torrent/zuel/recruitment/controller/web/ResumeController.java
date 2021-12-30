@@ -287,4 +287,35 @@ public class ResumeController {
         return RestResponse.Success(resumeService.deleteProfessionalSkills(id));
     }
 
+    @ApiOperation("新增学生干部经历")
+    @GetMapping("/insert/studentOfficer")
+    public RestResponse<Integer> insertStudentOfficer(
+            @ApiParam(name ="id",value = "id") @RequestParam Long id,
+            @ApiParam(name ="stuUniCode",value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name ="officerName",value = "任职名称") @RequestParam String officerName,
+            @ApiParam(name ="serveBeginTime",value = "开始时间") @RequestParam Date serveBeginTime,
+            @ApiParam(name ="serveEndTime",value = "结束时间") @RequestParam Date serveEndTime
+    ){
+        return RestResponse.Success(resumeService.insertStudentOfficer(id,stuUniCode,officerName,serveBeginTime,serveEndTime));
+    }
+
+    @ApiOperation("修改学生干部经历")
+    @GetMapping("/update/studentOfficer")
+    public RestResponse<Integer> updateStudentOfficer(
+            @ApiParam(name ="id",value = "id") @RequestParam Long id,
+            @ApiParam(name ="officerName",value = "任职名称") @RequestParam String officerName,
+            @ApiParam(name ="serveBeginTime",value = "开始时间") @RequestParam Date serveBeginTime,
+            @ApiParam(name ="serveEndTime",value = "结束时间") @RequestParam Date serveEndTime
+    ){
+        return RestResponse.Success(resumeService.updateStudentOfficer(id,officerName,serveBeginTime,serveEndTime));
+    }
+
+    @ApiOperation("删除学生干部经历")
+    @GetMapping("/delete/studentOfficer")
+    public RestResponse<Integer> deleteStudentOfficer(
+            @ApiParam(name ="id",value = "id") @RequestParam Long id,
+            @ApiParam(name ="officerName",value = "任职名称") @RequestParam String officerName
+    ){
+        return RestResponse.Success(resumeService.deleteStudentOfficer(id,officerName));
+    }
 }
