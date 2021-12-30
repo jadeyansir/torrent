@@ -91,19 +91,19 @@ public class ResumeController {
     @ApiOperation("修改求职状态")
     @GetMapping("/modify/search/status")
     public RestResponse<Integer> modifyJobSearchStatus(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
-                                                       @ApiParam(name = "JobSearchStatus", value = "1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作") @RequestParam Integer jobSearchStatus) {
+                                                       @ApiParam(name = "jobSearchStatus", value = "1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作") @RequestParam Integer jobSearchStatus) {
         return RestResponse.Success(resumeService.modifyJobSearchStatus(stuUniCode, jobSearchStatus));
     }
 
-    @ApiOperation("查询求职状态")
-    @GetMapping("/get/Self/evaluation")
+    @ApiOperation("查询自我评价")
+    @GetMapping("/get/self/evaluation")
     public RestResponse<String> getSelfEvaluation(
             @ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode) {
         return RestResponse.Success(resumeService.getSelfEvaluation(stuUniCode));
     }
 
-    @ApiOperation("修改求职状态")
-    @GetMapping("/modify/Self/evaluation")
+    @ApiOperation("修改自我评价")
+    @GetMapping("/modify/self/evaluation")
     public RestResponse<Integer> modifySelfEvaluation(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
                                                       @ApiParam(name = "selfEvaluation", value = "自我评价") @RequestParam String selfEvaluation) {
         return RestResponse.Success(resumeService.modifySelfEvaluation(stuUniCode, selfEvaluation));
