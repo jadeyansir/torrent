@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "进度")
 @RestController
-@RequestMapping("/api/process")
+@RequestMapping("/api/student/process")
 public class ProcessController {
     @Resource
     private ProcessService processService;

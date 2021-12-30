@@ -2,6 +2,7 @@ package com.torrent.zuel.recruitment.controller.web;
 
 import com.torrent.zuel.recruitment.config.http.RestResponse;
 import com.torrent.zuel.recruitment.model.dto.ProjectHistoryDTO;
+import com.torrent.zuel.recruitment.model.dto.StudentOfficerDTO;
 import com.torrent.zuel.recruitment.model.dto.response.EducationHistoryResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.JobExpectResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
@@ -90,8 +91,8 @@ public class ResumeController {
     @ApiOperation("修改求职状态")
     @GetMapping("/modify/search/status")
     public RestResponse<Integer> modifyJobSearchStatus(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
-                                                       @ApiParam(name = "JobSearchStatus", value = "1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作") @RequestParam Integer JobSearchStatus) {
-        return RestResponse.Success(resumeService.modifyJobSearchStatus(stuUniCode, JobSearchStatus));
+                                                       @ApiParam(name = "JobSearchStatus", value = "1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作") @RequestParam Integer jobSearchStatus) {
+        return RestResponse.Success(resumeService.modifyJobSearchStatus(stuUniCode, jobSearchStatus));
     }
 
     @ApiOperation("查询求职状态")
@@ -290,32 +291,38 @@ public class ResumeController {
     @ApiOperation("新增学生干部经历")
     @GetMapping("/insert/studentOfficer")
     public RestResponse<Integer> insertStudentOfficer(
-            @ApiParam(name ="id",value = "id") @RequestParam Long id,
-            @ApiParam(name ="stuUniCode",value = "学号") @RequestParam Long stuUniCode,
-            @ApiParam(name ="officerName",value = "任职名称") @RequestParam String officerName,
-            @ApiParam(name ="serveBeginTime",value = "开始时间") @RequestParam Date serveBeginTime,
-            @ApiParam(name ="serveEndTime",value = "结束时间") @RequestParam Date serveEndTime
-    ){
-        return RestResponse.Success(resumeService.insertStudentOfficer(id,stuUniCode,officerName,serveBeginTime,serveEndTime));
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode,
+            @ApiParam(name = "officerName", value = "任职名称") @RequestParam String officerName,
+            @ApiParam(name = "serveBeginTime", value = "开始时间") @RequestParam Date serveBeginTime,
+            @ApiParam(name = "serveEndTime", value = "结束时间") @RequestParam Date serveEndTime
+    ) {
+        return RestResponse.Success(resumeService.insertStudentOfficer(stuUniCode, officerName, serveBeginTime, serveEndTime));
     }
 
     @ApiOperation("修改学生干部经历")
     @GetMapping("/update/studentOfficer")
     public RestResponse<Integer> updateStudentOfficer(
-            @ApiParam(name ="id",value = "id") @RequestParam Long id,
-            @ApiParam(name ="officerName",value = "任职名称") @RequestParam String officerName,
-            @ApiParam(name ="serveBeginTime",value = "开始时间") @RequestParam Date serveBeginTime,
-            @ApiParam(name ="serveEndTime",value = "结束时间") @RequestParam Date serveEndTime
-    ){
-        return RestResponse.Success(resumeService.updateStudentOfficer(id,officerName,serveBeginTime,serveEndTime));
+            @ApiParam(name = "id", value = "id") @RequestParam Long id,
+            @ApiParam(name = "officerName", value = "任职名称") @RequestParam String officerName,
+            @ApiParam(name = "serveBeginTime", value = "开始时间") @RequestParam Date serveBeginTime,
+            @ApiParam(name = "serveEndTime", value = "结束时间") @RequestParam Date serveEndTime
+    ) {
+        return RestResponse.Success(resumeService.updateStudentOfficer(id, officerName, serveBeginTime, serveEndTime));
     }
 
     @ApiOperation("删除学生干部经历")
     @GetMapping("/delete/studentOfficer")
     public RestResponse<Integer> deleteStudentOfficer(
-            @ApiParam(name ="id",value = "id") @RequestParam Long id,
-            @ApiParam(name ="officerName",value = "任职名称") @RequestParam String officerName
-    ){
-        return RestResponse.Success(resumeService.deleteStudentOfficer(id,officerName));
+            @ApiParam(name = "id", value = "id") @RequestParam Long id
+    ) {
+        return RestResponse.Success(resumeService.deleteStudentOfficer(id));
+    }
+
+    @ApiOperation("查询学生干部经历")
+    @GetMapping("/get/studentOfficer")
+    public RestResponse<List<StudentOfficerDTO>> getStudentOfficer(
+            @ApiParam(name = "stuUniCode", value = "学号") @RequestParam Long stuUniCode
+    ) {
+        return RestResponse.Success(resumeService.listStudentOfficer(stuUniCode));
     }
 }
