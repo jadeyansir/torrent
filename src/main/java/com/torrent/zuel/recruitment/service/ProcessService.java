@@ -14,4 +14,8 @@ public interface ProcessService {
     PageInfo<DeliverResponseDTO> listDeliverDTO(Long stuUniCode, Integer deliverStatus, int pageNum, int pageSize);
 
     PageInfo<ContractDTO> listContractDTO(Long stuUniCode, Integer contractStatus, int pageNum, int pageSize);
+
+    String getRejectReasons(Long id);
+
+    String getInterviewMessage(Long id);
 }

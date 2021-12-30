@@ -3,6 +3,7 @@ package com.torrent.zuel.recruitment.service.impl;
 import com.google.common.collect.Lists;
 import com.torrent.zuel.recruitment.dao.*;
 import com.torrent.zuel.recruitment.model.dto.ProjectHistoryDTO;
+import com.torrent.zuel.recruitment.model.dto.StudentOfficerDTO;
 import com.torrent.zuel.recruitment.model.dto.response.EducationHistoryResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.JobExpectResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -110,13 +112,13 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus) {
+    public Integer modifyJobSearchStatus(Long stuUniCode, Integer jobSearchStatus) {
         if (Objects.isNull(stuUniCode)) {
             return 0;
         }
         JobExpectDO jobExpectDO = new JobExpectDO();
         jobExpectDO.setStuUniCode(stuUniCode);
-        jobExpectDO.setJobSearchStatus(JobSearchStatus);
+        jobExpectDO.setJobSearchStatus(jobSearchStatus);
         return jobExpectDAO.modifyJobExpect(jobExpectDO);
     }
 
@@ -281,64 +283,57 @@ public class ResumeServiceImpl implements ResumeService {
 
     //对学生干部经历的操作
     @Override
-    public Integer insertStudentOfficer(Long id,Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
-        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
-        studentOfficerDO.setId(id);
+    public Integer insertStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
+        StudentOfficerDO studentOfficerDO = new StudentOfficerDO();
         studentOfficerDO.setStuUniCode(stuUniCode);
         studentOfficerDO.setOfficerName(officerName);
         studentOfficerDO.setServeBeginTime(serveBeginTime);
-        Integer integer=studentOfficerDAO.insertStudentOfficer(studentOfficerDO);
+        studentOfficerDO.setServeEndTime(serveEndTime);
+        Integer integer = studentOfficerDAO.insertStudentOfficer(studentOfficerDO);
         return integer;
     }
 
     @Override
     public Integer updateStudentOfficer(Long id, String officerName, Date serveBeginTime, Date serveEndTime) {
-        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+        StudentOfficerDO studentOfficerDO = new StudentOfficerDO();
         studentOfficerDO.setId(id);
         studentOfficerDO.setOfficerName(officerName);
         studentOfficerDO.setServeBeginTime(serveBeginTime);
-        Integer integer=studentOfficerDAO.updateStudentOfficer(studentOfficerDO);
+        Integer integer = studentOfficerDAO.updateStudentOfficer(studentOfficerDO);
         return integer;
 
     }
 
     @Override
-    public Integer deleteStudentOfficer(Long id, String officerName) {
-        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
+    public Integer deleteStudentOfficer(Long id) {
+        if (Objects.isNull(id)) {
+            return 0;
+        }
+        StudentOfficerDO studentOfficerDO = new StudentOfficerDO();
         studentOfficerDO.setId(id);
-        studentOfficerDO.setOfficerName(officerName);
-        Integer integer=studentOfficerDAO.deleteStudentOfficer(studentOfficerDO);
+        Integer integer = studentOfficerDAO.deleteStudentOfficer(studentOfficerDO);
         return integer;
     }
 
-//    @Override
-//    public Integer insertStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
-//        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
-//        studentOfficerDO.setStuUniCode(stuUniCode);
-//        studentOfficerDO.setOfficerName(officerName);
-//        studentOfficerDO.setServeBeginTime(serveBeginTime);
-//        Integer integer=studentOfficerDAO.insertStudentOfficer(studentOfficerDO);
-//        return integer;
-//    }
-//
-//    @Override
-//    public Integer updateStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime) {
-//        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
-//        studentOfficerDO.setStuUniCode(stuUniCode);
-//        studentOfficerDO.setOfficerName(officerName);
-//        studentOfficerDO.setServeBeginTime(serveBeginTime);
-//        Integer integer=studentOfficerDAO.updateStudentOfficer(studentOfficerDO);
-//        return integer;
-//
-//    }
-//
-//    @Override
-//    public Integer deleteStudentOfficer(Long stuUniCode, String officerName) {
-//        StudentOfficerDO studentOfficerDO=new StudentOfficerDO();
-//        studentOfficerDO.setStuUniCode(stuUniCode);
-//        studentOfficerDO.setOfficerName(officerName);
-//        Integer integer=studentOfficerDAO.deleteStudentOfficer(studentOfficerDO);
-//        return integer;
-//    }
+    @Override
+    public List<StudentOfficerDTO> listStudentOfficer(Long stuUniCode) {
+        if (Objects.isNull(stuUniCode)) {
+            return null;
+        }
+        List<StudentOfficerDO> studentOfficerDOList =
+                studentOfficerDAO.listStudentOfficer(stuUniCode);
+        List<StudentOfficerDTO> studentOfficerDTOList = new ArrayList<>();
+        for (StudentOfficerDO studentOfficerDO : studentOfficerDOList) {
+            StudentOfficerDTO studentOfficerDTO = new StudentOfficerDTO();
+            studentOfficerDTO.setId(studentOfficerDO.getId());
+            studentOfficerDTO.setStuUniCode(studentOfficerDO.getStuUniCode());
+            studentOfficerDTO.setOfficerName(studentOfficerDO.getOfficerName());
+            studentOfficerDTO.setServeBeginTime(studentOfficerDO.getServeBeginTime());
+            studentOfficerDTO.setServeEndTime(studentOfficerDO.getServeEndTime());
+            studentOfficerDTO.setDeleted(studentOfficerDO.getDeleted());
+            studentOfficerDTOList.add(studentOfficerDTO);
+        }
+        return studentOfficerDTOList;
+    }
 
 }

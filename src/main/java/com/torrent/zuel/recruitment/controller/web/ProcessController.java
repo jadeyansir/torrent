@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "进度")
 @RestController
-@RequestMapping("/api/process")
+@RequestMapping("/api/student/process")
 public class ProcessController {
     @Resource
     private ProcessService processService;
@@ -41,13 +41,27 @@ public class ProcessController {
 
     @ApiOperation(value = "分页查询签约进度")
     @GetMapping("/contract")
-    public RestResponse<PageInfo<ContractDTO>> lisContractDTOByPaging(
+    public RestResponse<PageInfo<ContractDTO>> listContractDTOByPaging(
             @ApiParam(name = "stuUniCode", value = "学生编码") @RequestParam Long stuUniCode,
             @ApiParam(name = "processStatus", value = "签约进度(1:待签约,2:已签约,3:已拒绝)")
             @RequestParam Integer contractStatus,
             @ApiParam(name = "pageNum", value = "页数") @RequestParam int pageNum,
             @ApiParam(name = "pageSize", value = "页大小") @RequestParam int pageSize) {
         return RestResponse.Success(processService.listContractDTO(stuUniCode, contractStatus, pageNum, pageSize));
+    }
+
+    @ApiOperation(value = "查询拒绝原因")
+    @GetMapping("/get/reject/reasons")
+    public RestResponse<String> getRejectReasons(
+            @ApiParam(name = "id", value = "投递id") @RequestParam Long id) {
+        return RestResponse.Success(processService.getRejectReasons(id));
+    }
+
+    @ApiOperation(value = "查询面试消息")
+    @GetMapping("/get/interview/message")
+    public RestResponse<String> getInterviewMessage(
+            @ApiParam(name = "id", value = "投递id") @RequestParam Long id) {
+        return RestResponse.Success(processService.getInterviewMessage(id));
     }
 
 }

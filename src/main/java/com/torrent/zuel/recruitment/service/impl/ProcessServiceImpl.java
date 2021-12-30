@@ -76,4 +76,28 @@ public class ProcessServiceImpl implements ProcessService {
         processDTOPageInfo.setList(deliverDTOList);
         return processDTOPageInfo;
     }
+
+    @Override
+    public String getRejectReasons(Long id) {
+        if (Objects.isNull(id)) {
+            return "";
+        }
+        DeliverDO deliverDO = deliverDAO.getDeliverDOById(id);
+        if (Objects.nonNull(deliverDO)) {
+            return deliverDO.getRejectReasons();
+        }
+        return "";
+    }
+
+    @Override
+    public String getInterviewMessage(Long id) {
+        if (Objects.isNull(id)) {
+            return "";
+        }
+        DeliverDO deliverDO = deliverDAO.getDeliverDOById(id);
+        if (Objects.nonNull(deliverDO)) {
+            return deliverDO.getInterviewMessage();
+        }
+        return "";
+    }
 }

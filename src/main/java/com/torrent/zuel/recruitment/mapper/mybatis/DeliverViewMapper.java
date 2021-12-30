@@ -17,4 +17,6 @@ public interface DeliverViewMapper {
 
     List<DeliverDO> listDeliver(@Param("stuUniCode") Long stuUniCode, @Param("deliverStatus") Integer deliverStatus);
 
+    DeliverDO getDeliverDOById(@Param("id") Long id);
+
 }

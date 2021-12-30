@@ -26,4 +26,8 @@ public class DeliverDAO {
         return new PageInfo<>(deliverDOList);
     }
 
+    public DeliverDO getDeliverDOById(Long id) {
+        return deliverViewMapper.getDeliverDOById(id);
+    }
+
 }

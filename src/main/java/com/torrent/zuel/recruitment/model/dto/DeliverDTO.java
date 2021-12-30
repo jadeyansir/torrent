@@ -22,8 +22,16 @@ public class DeliverDTO {
     private Date deliverDate;
     @ApiModelProperty("投递进度(1:已收藏,2:已投递,3:待面试,4:已面试,5:已录取,6:未录取,7:被拒绝)")
     private Integer deliverStatus;
-    @ApiModelProperty("岗位是否过期(0表示岗位未过期,1表示未过期)")
-    private Integer deleted;
+    @ApiModelProperty("拒绝原因")
+    private String rejectReasons;
+    @ApiModelProperty("面试信息")
+    private String interviewMessage;
+    @ApiModelProperty("创建人")
+    private Long createBy;
+    @ApiModelProperty("创建时间")
+    private Timestamp createTime;
+    @ApiModelProperty("修改人")
+    private Long updateBy;
     @ApiModelProperty("修改时间")
     private Timestamp updateTime;
 
@@ -91,12 +99,44 @@ public class DeliverDTO {
         this.deliverStatus = deliverStatus;
     }
 
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
+    public String getRejectReasons() {
+        return rejectReasons;
     }
 
-    public Integer getDeleted() {
-        return deleted;
+    public void setRejectReasons(String rejectReasons) {
+        this.rejectReasons = rejectReasons;
+    }
+
+    public String getInterviewMessage() {
+        return interviewMessage;
+    }
+
+    public void setInterviewMessage(String interviewMessage) {
+        this.interviewMessage = interviewMessage;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    public Timestamp getCreateTime() {
+        return createTime == null ? null : new Timestamp(createTime.getTime());
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime == null ? null : new Timestamp(createTime.getTime());
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
     }
 
     public Timestamp getUpdateTime() {

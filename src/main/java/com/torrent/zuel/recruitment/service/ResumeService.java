@@ -1,6 +1,7 @@
 package com.torrent.zuel.recruitment.service;
 
 import com.torrent.zuel.recruitment.model.dto.ProjectHistoryDTO;
+import com.torrent.zuel.recruitment.model.dto.StudentOfficerDTO;
 import com.torrent.zuel.recruitment.model.dto.response.EducationHistoryResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.JobExpectResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
@@ -27,7 +28,7 @@ public interface ResumeService {
 
     Integer getJobSearchStatus(Long stuUniCode);
 
-    Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus);
+    Integer modifyJobSearchStatus(Long stuUniCode, Integer jobSearchStatus);
 
     String getSelfEvaluation(Long stuUniCode);
 
@@ -59,9 +60,13 @@ public interface ResumeService {
     Integer updateProfessionalSkills(Long id, Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel);
 
     Integer deleteProfessionalSkills(Long id);
-    //对学生社团任职经历
-    Integer insertStudentOfficer(Long id,Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime);
-    Integer updateStudentOfficer(Long id, String officerName, Date serveBeginTime, Date serveEndTime);
-    Integer deleteStudentOfficer(Long id, String officerName);
 
+    //对学生社团任职经历
+    Integer insertStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime);
+
+    Integer updateStudentOfficer(Long id, String officerName, Date serveBeginTime, Date serveEndTime);
+
+    Integer deleteStudentOfficer(Long id);
+
+    List<StudentOfficerDTO> listStudentOfficer(Long stuUniCode);
 }
