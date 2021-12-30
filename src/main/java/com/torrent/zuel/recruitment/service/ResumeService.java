@@ -2,7 +2,7 @@ package com.torrent.zuel.recruitment.service;
 
 import com.torrent.zuel.recruitment.model.dto.ProjectHistoryDTO;
 import com.torrent.zuel.recruitment.model.dto.response.EducationHistoryResponseDTO;
-import com.torrent.zuel.recruitment.model.dto.response.ResumeResponseDTO;
+import com.torrent.zuel.recruitment.model.dto.response.JobExpectResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
 
 import java.math.BigDecimal;
@@ -17,12 +17,17 @@ import java.util.List;
  */
 public interface ResumeService {
 
-    Integer modifyJobExpect(Long stuUniCode, String jobName, Integer industryCode, String jobAddress,
+    Integer modifyJobExpect(Long id, Long stuUniCode, String jobName, Integer industryCode, String jobAddress,
                             Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary);
+
+    Integer insertJobExpect(Long stuUniCode, String jobName, Integer industryCode,
+                            String jobAddress, Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary);
+
+    Integer deleteJobExpect(Long id);
 
     Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus);
 
-    ResumeResponseDTO getResume(Long stuUniCode);
+    JobExpectResponseDTO getResume(Long stuUniCode);
 
     List<EducationHistoryResponseDTO> listEducationHistory(Long stuUniCode);
 

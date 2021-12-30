@@ -1,13 +1,11 @@
-package com.torrent.zuel.recruitment.model.dto;
+package com.torrent.zuel.recruitment.model.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
-public class ResumeDTO {
-    @ApiModelProperty("主键")
-    private Long id;
+public class JobExpectResponseDTO {
+
     @ApiModelProperty("学号")
     private Long stuUniCode;
     @ApiModelProperty("岗位描述")
@@ -26,24 +24,6 @@ public class ResumeDTO {
     private BigDecimal jobMaxSalary;
     @ApiModelProperty("求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)")
     private Integer jobSearchStatus;
-    @ApiModelProperty("是否删除:0表示没有删除,1表示删除")
-    private Integer deleted;
-    @ApiModelProperty("创建人")
-    private Long createBy;
-    @ApiModelProperty("创建时间")
-    private Timestamp createTime;
-    @ApiModelProperty("修改人")
-    private Long updateBy;
-    @ApiModelProperty("修改时间")
-    private Timestamp updateTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getStuUniCode() {
         return stuUniCode;
@@ -115,46 +95,6 @@ public class ResumeDTO {
 
     public void setJobSearchStatus(Integer jobSearchStatus) {
         this.jobSearchStatus = jobSearchStatus;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
-    }
-
-    public Long getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
-    }
-
-    public Timestamp getCreateTime() {
-        return createTime == null ? null : new Timestamp(createTime.getTime());
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime == null ? null : new Timestamp(createTime.getTime());
-    }
-
-    public Long getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Timestamp getUpdateTime() {
-        return updateTime == null ? null : new Timestamp(updateTime.getTime());
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime == null ? null : new Timestamp(updateTime.getTime());
     }
 
 }
