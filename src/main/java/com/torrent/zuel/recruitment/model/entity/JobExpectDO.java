@@ -6,8 +6,8 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Table(name = "resume")
-public class ResumeDO {
+@Table(name = "job_expect")
+public class JobExpectDO {
     /**
      * 主键
      */

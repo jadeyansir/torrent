@@ -316,8 +316,8 @@ CREATE TABLE `public_dict`
     KEY                     `idx_parameter_system_code_valid` (`parameter_system_code`,`valid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
 
-DROP TABLE IF EXISTS `resume`;
-CREATE TABLE `resume`
+DROP TABLE IF EXISTS `job_expect`;
+CREATE TABLE `job_expect`
 (
     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `stu_uni_code`      bigint(20) NOT NULL COMMENT '学号',
@@ -336,7 +336,7 @@ CREATE TABLE `resume`
     `update_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`),
     KEY                 `idx_stu_uni_code` (`stu_uni_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='求职意向表';
 
 DROP TABLE IF EXISTS `education_history`;
 CREATE TABLE `education_history`

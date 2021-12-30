@@ -1,6 +1,8 @@
 package com.torrent.zuel.recruitment.service;
 
 
+import com.torrent.zuel.recruitment.model.dto.response.StudentInfoResumeResponseDTO;
+
 import java.sql.Date;
 
 /**
@@ -12,5 +14,7 @@ import java.sql.Date;
 public interface StudentInfoService {
 
     Integer modifyStudentInfo(Long stuUniCode, String name, Date stuBirthDate, Integer sex, String address, Integer political,
-                              Date stuGraduationDate, Long telephone);
+                              Date stuGraduationDate, Long telephone, String stuEmail);
+
+    StudentInfoResumeResponseDTO getStudentInfoDTO(Long stuUniCode);
 }

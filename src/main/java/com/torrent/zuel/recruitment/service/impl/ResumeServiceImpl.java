@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.torrent.zuel.recruitment.dao.*;
 import com.torrent.zuel.recruitment.model.dto.ProjectHistoryDTO;
 import com.torrent.zuel.recruitment.model.dto.response.EducationHistoryResponseDTO;
-import com.torrent.zuel.recruitment.model.dto.response.ResumeResponseDTO;
+import com.torrent.zuel.recruitment.model.dto.response.JobExpectResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
 import com.torrent.zuel.recruitment.model.entity.*;
 import com.torrent.zuel.recruitment.service.ResumeService;
@@ -29,7 +29,7 @@ import java.util.Optional;
 public class ResumeServiceImpl implements ResumeService {
 
     @Resource
-    private ResumeDAO resumeDAO;
+    private JobExpectDAO jobExpectDAO;
 
     @Resource
     private IndustryInfoDAO industryInfoDAO;
@@ -47,46 +47,71 @@ public class ResumeServiceImpl implements ResumeService {
     private ProfessionalSkillsDAO professionalSkillsDAO;
 
     @Override
-    public Integer modifyJobExpect(Long stuUniCode, String jobName, Integer industryCode,
+    public Integer modifyJobExpect(Long id, Long stuUniCode, String jobName, Integer industryCode,
                                    String jobAddress, Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary) {
-        ResumeDO resumeDO = new ResumeDO();
-        resumeDO.setStuUniCode(stuUniCode);
-        resumeDO.setJobName(jobName);
+        if (Objects.isNull(id)) {
+            return 0;
+        }
+        JobExpectDO jobExpectDO = new JobExpectDO();
+        jobExpectDO.setId(id);
+        jobExpectDO.setStuUniCode(stuUniCode);
+        jobExpectDO.setJobName(jobName);
         Optional<IndustryInfoDO> industryInfoDOOptional = industryInfoDAO.getIndustryByIndustryCode(industryCode);
         industryInfoDOOptional.ifPresent(x -> {
-            resumeDO.setIndustryName(x.getIndustryName());
+            jobExpectDO.setIndustryName(x.getIndustryName());
         });
-        resumeDO.setJobAddress(jobAddress);
-        resumeDO.setJobType(jobType);
-        resumeDO.setJobMaxSalary(jobMaxSalary);
-        resumeDO.setJobMinSalary(jobMinSalary);
-        return resumeDAO.modifyResume(resumeDO);
+        jobExpectDO.setJobAddress(jobAddress);
+        jobExpectDO.setJobType(jobType);
+        jobExpectDO.setJobMaxSalary(jobMaxSalary);
+        jobExpectDO.setJobMinSalary(jobMinSalary);
+        return jobExpectDAO.modifyResume(jobExpectDO);
     }
 
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis());
+
+    @Override
+    public Integer insertJobExpect(Long stuUniCode, String jobName, Integer industryCode,
+                                   String jobAddress, Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary) {
+        JobExpectDO jobExpectDO = new JobExpectDO();
+        jobExpectDO.setStuUniCode(stuUniCode);
+        jobExpectDO.setJobName(jobName);
+        Optional<IndustryInfoDO> industryInfoDOOptional = industryInfoDAO.getIndustryByIndustryCode(industryCode);
+        industryInfoDOOptional.ifPresent(x -> {
+            jobExpectDO.setIndustryName(x.getIndustryName());
+        });
+        jobExpectDO.setJobAddress(jobAddress);
+        jobExpectDO.setJobType(jobType);
+        jobExpectDO.setJobMaxSalary(jobMaxSalary);
+        jobExpectDO.setJobMinSalary(jobMinSalary);
+        return jobExpectDAO.insertResume(jobExpectDO);
     }
 
+    @Override
+    public Integer deleteJobExpect(Long id) {
+        if (Objects.isNull(id)) {
+            return 0;
+        }
+        return jobExpectDAO.deleteJobExpect(id);
+    }
 
     @Override
     public Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus) {
         if (Objects.isNull(stuUniCode)) {
             return 0;
         }
-        ResumeDO resumeDO = new ResumeDO();
-        resumeDO.setStuUniCode(stuUniCode);
-        resumeDO.setJobSearchStatus(JobSearchStatus);
-        return resumeDAO.modifyResume(resumeDO);
+        JobExpectDO jobExpectDO = new JobExpectDO();
+        jobExpectDO.setStuUniCode(stuUniCode);
+        jobExpectDO.setJobSearchStatus(JobSearchStatus);
+        return jobExpectDAO.modifyResume(jobExpectDO);
     }
 
     @Override
-    public ResumeResponseDTO getResume(Long stuUniCode) {
+    public JobExpectResponseDTO getResume(Long stuUniCode) {
         if (Objects.isNull(stuUniCode)) {
             return null;
         }
-        Optional<ResumeDO> resumeDOOptional = resumeDAO.getResumeByStuUniCode(stuUniCode);
+        Optional<JobExpectDO> resumeDOOptional = jobExpectDAO.getResumeByStuUniCode(stuUniCode);
         if (resumeDOOptional.isPresent()) {
-            return BeanCopyUtils.copyProperties(resumeDOOptional.get(), ResumeResponseDTO.class);
+            return BeanCopyUtils.copyProperties(resumeDOOptional.get(), JobExpectResponseDTO.class);
         }
         return null;
     }

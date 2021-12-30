@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.github.wz2cool.dynamic.builder.DynamicQueryBuilderHelper.isEqual;
 
@@ -35,5 +36,14 @@ public class StudentInfoDAO {
             return studentInfoMapper.insertSelective(studentInfoDO);
         }
         return studentInfoMapper.updateSelectiveByDynamicQuery(studentInfoDO, query);
+    }
+
+    public Optional<StudentInfoDO> getStudentInfoDTO(Long stuUniCode) {
+        if (Objects.isNull(stuUniCode)) {
+            return Optional.empty();
+        }
+        DynamicQuery<StudentInfoDO> query = DynamicQuery.createQuery(StudentInfoDO.class)
+                .and(StudentInfoDO::getStuUniCode, isEqual(stuUniCode));
+        return studentInfoMapper.selectFirstByDynamicQuery(query);
     }
 }
