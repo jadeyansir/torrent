@@ -59,4 +59,9 @@ public interface ResumeService {
     Integer updateProfessionalSkills(Long id, Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel);
 
     Integer deleteProfessionalSkills(Long id);
+    //对学生社团任职经历
+    Integer insertStudentOfficer(Long id,Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime);
+    Integer updateStudentOfficer(Long id, String officerName, Date serveBeginTime, Date serveEndTime);
+    Integer deleteStudentOfficer(Long id, String officerName);
+
 }
