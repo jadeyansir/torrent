@@ -1,88 +1,40 @@
-package com.torrent.zuel.recruitment.model.entity;
+package com.torrent.zuel.recruitment.model.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Table(name = "resume")
-public class ResumeDO {
-    /**
-     * 主键
-     */
-    @Id
-    @Column
+public class JobExpectDTO {
+    @ApiModelProperty("主键")
     private Long id;
-    /**
-     * 学号
-     */
-    @Column
+    @ApiModelProperty("学号")
     private Long stuUniCode;
-    /**
-     * 岗位描述
-     */
-    @Column
+    @ApiModelProperty("岗位描述")
     private String jobName;
-    /**
-     * 行业编码
-     */
-    @Column
+    @ApiModelProperty("行业编码")
     private Integer industryCode;
-    /**
-     * 行业名称
-     */
-    @Column
+    @ApiModelProperty("行业名称")
     private String industryName;
-    /**
-     * 工作性质
-     */
-    @Column
+    @ApiModelProperty("工作性质")
     private Integer jobType;
-    /**
-     * 期望岗位地点
-     */
-    @Column
+    @ApiModelProperty("期望岗位地点")
     private String jobAddress;
-    /**
-     * 岗位期望最小薪水
-     */
-    @Column
+    @ApiModelProperty("岗位期望最小薪水")
     private BigDecimal jobMinSalary;
-    /**
-     * 岗位期望最大薪水
-     */
-    @Column
+    @ApiModelProperty("岗位期望最大薪水")
     private BigDecimal jobMaxSalary;
-    /**
-     * 求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)
-     */
-    @Column
+    @ApiModelProperty("求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)")
     private Integer jobSearchStatus;
-    /**
-     * 是否删除:0表示没有删除,1表示删除
-     */
-    @Column
+    @ApiModelProperty("是否删除:0表示没有删除,1表示删除")
     private Integer deleted;
-    /**
-     * 创建人
-     */
-    @Column
+    @ApiModelProperty("创建人")
     private Long createBy;
-    /**
-     * 创建时间
-     */
-    @Column
+    @ApiModelProperty("创建时间")
     private Timestamp createTime;
-    /**
-     * 修改人
-     */
-    @Column
+    @ApiModelProperty("修改人")
     private Long updateBy;
-    /**
-     * 修改时间
-     */
-    @Column
+    @ApiModelProperty("修改时间")
     private Timestamp updateTime;
 
     public Long getId() {

@@ -2,7 +2,7 @@ package com.torrent.zuel.recruitment.service;
 
 import com.torrent.zuel.recruitment.model.dto.ProjectHistoryDTO;
 import com.torrent.zuel.recruitment.model.dto.response.EducationHistoryResponseDTO;
-import com.torrent.zuel.recruitment.model.dto.response.ResumeResponseDTO;
+import com.torrent.zuel.recruitment.model.dto.response.JobExpectResponseDTO;
 import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
 
 import java.math.BigDecimal;
@@ -17,12 +17,23 @@ import java.util.List;
  */
 public interface ResumeService {
 
-    Integer modifyJobExpect(Long stuUniCode, String jobName, Integer industryCode, String jobAddress,
+    Integer modifyJobExpect(Long id, Long stuUniCode, String jobName, Integer industryCode, String jobAddress,
                             Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary);
+
+    Integer insertJobExpect(Long stuUniCode, String jobName, Integer industryCode,
+                            String jobAddress, Integer jobType, BigDecimal jobMinSalary, BigDecimal jobMaxSalary);
+
+    Integer deleteJobExpect(Long id);
+
+    Integer getJobSearchStatus(Long stuUniCode);
 
     Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus);
 
-    ResumeResponseDTO getResume(Long stuUniCode);
+    String getSelfEvaluation(Long stuUniCode);
+
+    Integer modifySelfEvaluation(Long stuUniCode, String selfEvaluation);
+
+    List<JobExpectResponseDTO> listJobExpect(Long stuUniCode);
 
     List<EducationHistoryResponseDTO> listEducationHistory(Long stuUniCode);
 
@@ -38,18 +49,14 @@ public interface ResumeService {
 
     Integer insertProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail);
 
-    Integer updateProjectHistory(Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail);
+    Integer updateProjectHistory(Long id, Long stuUniCode, String projectName, Date projectBeginTime, Date projectEndTime, String projectDetail);
 
-//    对专业技能的操作
-    Integer insertProfessionalSkills(Long stuUniCode,String skillName,Integer useTime,Integer masteryLevel);
-    Integer updateProfessionalSkills(Long stuUniCode,String skillName,Integer useTime,Integer masteryLevel);
-    Integer deleteProfessionalSkills(Long stuUniCode, String skillName);
+    Integer deleteProjectHistory(Long id);
 
-    //对学生干部经历的操作
-//    Integer insertStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime);
-//    Integer updateStudentOfficer(Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime);
-//    Integer deleteStudentOfficer(Long stuUniCode, String officerName);
-    Integer insertStudentOfficer(Long id,Long stuUniCode, String officerName, Date serveBeginTime, Date serveEndTime);
-    Integer updateStudentOfficer(Long id, String officerName, Date serveBeginTime, Date serveEndTime);
-    Integer deleteStudentOfficer(Long id, String officerName);
+    //    对专业技能的操作
+    Integer insertProfessionalSkills(Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel);
+
+    Integer updateProfessionalSkills(Long id, Long stuUniCode, String skillName, Integer useTime, Integer masteryLevel);
+
+    Integer deleteProfessionalSkills(Long id);
 }

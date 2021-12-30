@@ -316,8 +316,8 @@ CREATE TABLE `public_dict`
     KEY                     `idx_parameter_system_code_valid` (`parameter_system_code`,`valid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
 
-DROP TABLE IF EXISTS `resume`;
-CREATE TABLE `resume`
+DROP TABLE IF EXISTS `job_expect`;
+CREATE TABLE `job_expect`
 (
     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `stu_uni_code`      bigint(20) NOT NULL COMMENT '学号',
@@ -329,6 +329,7 @@ CREATE TABLE `resume`
     `job_min_salary`    decimal(12, 4) DEFAULT NULL COMMENT '岗位期望最小薪水',
     `job_max_salary`    decimal(12, 4) DEFAULT NULL COMMENT '岗位期望最大薪水',
     `job_search_status` tinyint(4) DEFAULT NULL COMMENT '求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)',
+    `self_evaluation`   varchar(255)   DEFAULT NULL COMMENT '自我评价',
     `deleted`           tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除:0表示没有删除,1表示删除',
     `create_by`         bigint(20) DEFAULT NULL COMMENT '创建人',
     `create_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -336,7 +337,7 @@ CREATE TABLE `resume`
     `update_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`),
     KEY                 `idx_stu_uni_code` (`stu_uni_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='求职意向表';
 
 DROP TABLE IF EXISTS `education_history`;
 CREATE TABLE `education_history`
