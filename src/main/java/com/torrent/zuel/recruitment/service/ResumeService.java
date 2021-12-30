@@ -29,6 +29,10 @@ public interface ResumeService {
 
     Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus);
 
+    String getSelfEvaluation(Long stuUniCode);
+
+    Integer modifySelfEvaluation(Long stuUniCode, String selfEvaluation);
+
     List<JobExpectResponseDTO> listJobExpect(Long stuUniCode);
 
     List<EducationHistoryResponseDTO> listEducationHistory(Long stuUniCode);

@@ -329,6 +329,7 @@ CREATE TABLE `job_expect`
     `job_min_salary`    decimal(12, 4) DEFAULT NULL COMMENT '岗位期望最小薪水',
     `job_max_salary`    decimal(12, 4) DEFAULT NULL COMMENT '岗位期望最大薪水',
     `job_search_status` tinyint(4) DEFAULT NULL COMMENT '求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)',
+    `self_evaluation`   varchar(255)   DEFAULT NULL COMMENT '自我评价',
     `deleted`           tinyint(4) unsigned DEFAULT '0' COMMENT '是否删除:0表示没有删除,1表示删除',
     `create_by`         bigint(20) DEFAULT NULL COMMENT '创建人',
     `create_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

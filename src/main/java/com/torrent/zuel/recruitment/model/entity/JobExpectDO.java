@@ -60,6 +60,11 @@ public class JobExpectDO {
     @Column
     private Integer jobSearchStatus;
     /**
+     * 自我评价
+     */
+    @Column
+    private String selfEvaluation;
+    /**
      * 是否删除:0表示没有删除,1表示删除
      */
     @Column
@@ -163,6 +168,14 @@ public class JobExpectDO {
 
     public void setJobSearchStatus(Integer jobSearchStatus) {
         this.jobSearchStatus = jobSearchStatus;
+    }
+
+    public void setSelfEvaluation(String selfEvaluation) {
+        this.selfEvaluation = selfEvaluation;
+    }
+
+    public String getSelfEvaluation() {
+        return selfEvaluation;
     }
 
     public Integer getDeleted() {
