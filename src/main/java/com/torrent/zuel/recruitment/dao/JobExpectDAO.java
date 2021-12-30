@@ -6,8 +6,8 @@ import com.torrent.zuel.recruitment.model.entity.JobExpectDO;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static com.github.wz2cool.dynamic.builder.DynamicQueryBuilderHelper.isEqual;
 
@@ -22,7 +22,7 @@ public class JobExpectDAO {
     @Resource
     private JobExpectMapper jobExpectMapper;
 
-    public Integer modifyResume(JobExpectDO jobExpectDO) {
+    public Integer modifyJobExpect(JobExpectDO jobExpectDO) {
         if (Objects.isNull(jobExpectDO)) {
             return 0;
         }
@@ -32,7 +32,7 @@ public class JobExpectDAO {
         return jobExpectMapper.updateSelectiveByDynamicQuery(jobExpectDO, query);
     }
 
-    public Integer insertResume(JobExpectDO jobExpectDO) {
+    public Integer insertJobExpect(JobExpectDO jobExpectDO) {
         if (Objects.isNull(jobExpectDO)) {
             return 0;
         }
@@ -43,9 +43,9 @@ public class JobExpectDAO {
         return jobExpectMapper.deleteByPrimaryKey(id);
     }
 
-    public Optional<JobExpectDO> getResumeByStuUniCode(Long stuUniCode) {
+    public List<JobExpectDO> getJobExpectByStuUniCode(Long stuUniCode) {
         DynamicQuery<JobExpectDO> query = DynamicQuery.createQuery(JobExpectDO.class)
                 .and(JobExpectDO::getStuUniCode, isEqual(stuUniCode));
-        return jobExpectMapper.selectFirstByDynamicQuery(query);
+        return jobExpectMapper.selectByDynamicQuery(query);
     }
 }

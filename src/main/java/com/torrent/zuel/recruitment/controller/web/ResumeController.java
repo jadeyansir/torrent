@@ -34,9 +34,10 @@ public class ResumeController {
     private ResumeService resumeService;
 
     @ApiOperation("查询简历求职意向基本信息")
-    @GetMapping("/get/search/status")
-    public RestResponse<JobExpectResponseDTO> getResume(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode) {
-        return RestResponse.Success(resumeService.getResume(stuUniCode));
+    @GetMapping("/get/job/expect")
+    public RestResponse<List<JobExpectResponseDTO>> listJobExpect(
+            @ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode) {
+        return RestResponse.Success(resumeService.listJobExpect(stuUniCode));
     }
 
     @ApiOperation("修改简历求职意向")
@@ -79,10 +80,17 @@ public class ResumeController {
     }
 
 
+    @ApiOperation("查询求职状态")
+    @GetMapping("/get/search/status")
+    public RestResponse<Integer> getJobSearchStatus(
+            @ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode) {
+        return RestResponse.Success(resumeService.getJobSearchStatus(stuUniCode));
+    }
+
     @ApiOperation("修改求职状态")
     @GetMapping("/modify/search/status")
     public RestResponse<Integer> modifyJobSearchStatus(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
-                                                       @ApiParam(name = "JobSearchStatus", value = "求职状态") @RequestParam Integer JobSearchStatus) {
+                                                       @ApiParam(name = "JobSearchStatus", value = "1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作") @RequestParam Integer JobSearchStatus) {
         return RestResponse.Success(resumeService.modifyJobSearchStatus(stuUniCode, JobSearchStatus));
     }
 
@@ -191,7 +199,7 @@ public class ResumeController {
     }
 
     @ApiOperation("删除求职简历工作|实习经历")
-    @GetMapping("/delete/history/education")
+    @GetMapping("/delete/history/work")
     public RestResponse<Integer> deleteWorkHistory(
             @ApiParam(name = "id", value = "工作|实习经历id") @RequestParam Long id) {
         return RestResponse.Success(resumeService.modifyWorkHistory(null, id, 3, null, null,

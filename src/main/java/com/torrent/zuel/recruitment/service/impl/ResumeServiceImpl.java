@@ -9,6 +9,7 @@ import com.torrent.zuel.recruitment.model.dto.response.WorkHistoryResponseDTO;
 import com.torrent.zuel.recruitment.model.entity.*;
 import com.torrent.zuel.recruitment.service.ResumeService;
 import com.torrent.zuel.recruitment.util.BeanCopyUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +65,7 @@ public class ResumeServiceImpl implements ResumeService {
         jobExpectDO.setJobType(jobType);
         jobExpectDO.setJobMaxSalary(jobMaxSalary);
         jobExpectDO.setJobMinSalary(jobMinSalary);
-        return jobExpectDAO.modifyResume(jobExpectDO);
+        return jobExpectDAO.modifyJobExpect(jobExpectDO);
     }
 
 
@@ -82,7 +83,7 @@ public class ResumeServiceImpl implements ResumeService {
         jobExpectDO.setJobType(jobType);
         jobExpectDO.setJobMaxSalary(jobMaxSalary);
         jobExpectDO.setJobMinSalary(jobMinSalary);
-        return jobExpectDAO.insertResume(jobExpectDO);
+        return jobExpectDAO.insertJobExpect(jobExpectDO);
     }
 
     @Override
@@ -94,6 +95,18 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
+    public Integer getJobSearchStatus(Long stuUniCode) {
+        if (Objects.isNull(stuUniCode)) {
+            return null;
+        }
+        List<JobExpectDO> jobExpectDOList = jobExpectDAO.getJobExpectByStuUniCode(stuUniCode);
+        if (CollectionUtils.isNotEmpty(jobExpectDOList)) {
+            return jobExpectDOList.get(0).getJobSearchStatus();
+        }
+        return null;
+    }
+
+    @Override
     public Integer modifyJobSearchStatus(Long stuUniCode, Integer JobSearchStatus) {
         if (Objects.isNull(stuUniCode)) {
             return 0;
@@ -101,19 +114,19 @@ public class ResumeServiceImpl implements ResumeService {
         JobExpectDO jobExpectDO = new JobExpectDO();
         jobExpectDO.setStuUniCode(stuUniCode);
         jobExpectDO.setJobSearchStatus(JobSearchStatus);
-        return jobExpectDAO.modifyResume(jobExpectDO);
+        return jobExpectDAO.modifyJobExpect(jobExpectDO);
     }
 
     @Override
-    public JobExpectResponseDTO getResume(Long stuUniCode) {
+    public List<JobExpectResponseDTO> listJobExpect(Long stuUniCode) {
         if (Objects.isNull(stuUniCode)) {
-            return null;
+            return Lists.newArrayList();
         }
-        Optional<JobExpectDO> resumeDOOptional = jobExpectDAO.getResumeByStuUniCode(stuUniCode);
-        if (resumeDOOptional.isPresent()) {
-            return BeanCopyUtils.copyProperties(resumeDOOptional.get(), JobExpectResponseDTO.class);
+        List<JobExpectDO> jobExpectDOList = jobExpectDAO.getJobExpectByStuUniCode(stuUniCode);
+        if (CollectionUtils.isNotEmpty(jobExpectDOList)) {
+            return BeanCopyUtils.copyList(jobExpectDOList, JobExpectResponseDTO.class);
         }
-        return null;
+        return Lists.newArrayList();
     }
 
     @Override
