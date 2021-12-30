@@ -50,6 +50,16 @@ public class DeliverDO {
     @Column
     private Integer deliverStatus;
     /**
+     * 拒绝原因
+     */
+    @Column
+    private String rejectReasons;
+    /**
+     * 面试信息
+     */
+    @Column
+    private String interviewMessage;
+    /**
      * 创建人
      */
     @Column
@@ -132,6 +142,22 @@ public class DeliverDO {
 
     public void setDeliverStatus(Integer deliverStatus) {
         this.deliverStatus = deliverStatus;
+    }
+
+    public String getRejectReasons() {
+        return rejectReasons;
+    }
+
+    public void setRejectReasons(String rejectReasons) {
+        this.rejectReasons = rejectReasons;
+    }
+
+    public String getInterviewMessage() {
+        return interviewMessage;
+    }
+
+    public void setInterviewMessage(String interviewMessage) {
+        this.interviewMessage = interviewMessage;
     }
 
     public Long getCreateBy() {

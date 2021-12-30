@@ -9,4 +9,9 @@
         where stu_uni_code = #{stuUniCode}
           and deliver_status = #{deliverStatus}
     </select>
+    <select id="getDeliverDOById" resultType="com.torrent.zuel.recruitment.model.entity.DeliverDO">
+        select *
+        from deliver
+        where id = #{id};
+    </select>
 </mapper>
