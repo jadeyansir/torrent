@@ -94,6 +94,20 @@ public class ResumeController {
         return RestResponse.Success(resumeService.modifyJobSearchStatus(stuUniCode, JobSearchStatus));
     }
 
+    @ApiOperation("查询求职状态")
+    @GetMapping("/get/Self/evaluation")
+    public RestResponse<String> getSelfEvaluation(
+            @ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode) {
+        return RestResponse.Success(resumeService.getSelfEvaluation(stuUniCode));
+    }
+
+    @ApiOperation("修改求职状态")
+    @GetMapping("/modify/Self/evaluation")
+    public RestResponse<Integer> modifySelfEvaluation(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
+                                                      @ApiParam(name = "selfEvaluation", value = "自我评价") @RequestParam String selfEvaluation) {
+        return RestResponse.Success(resumeService.modifySelfEvaluation(stuUniCode, selfEvaluation));
+    }
+
     @ApiOperation("查询求职简历教育经历")
     @GetMapping("/get/history/education")
     public RestResponse<List<EducationHistoryResponseDTO>> listEducationHistory(

@@ -118,6 +118,29 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
+    public String getSelfEvaluation(Long stuUniCode) {
+        if (Objects.isNull(stuUniCode)) {
+            return null;
+        }
+        List<JobExpectDO> jobExpectDOList = jobExpectDAO.getJobExpectByStuUniCode(stuUniCode);
+        if (CollectionUtils.isNotEmpty(jobExpectDOList)) {
+            return jobExpectDOList.get(0).getSelfEvaluation();
+        }
+        return null;
+    }
+
+    @Override
+    public Integer modifySelfEvaluation(Long stuUniCode, String selfEvaluation) {
+        if (Objects.isNull(stuUniCode)) {
+            return 0;
+        }
+        JobExpectDO jobExpectDO = new JobExpectDO();
+        jobExpectDO.setStuUniCode(stuUniCode);
+        jobExpectDO.setSelfEvaluation(selfEvaluation);
+        return jobExpectDAO.modifyJobExpect(jobExpectDO);
+    }
+
+    @Override
     public List<JobExpectResponseDTO> listJobExpect(Long stuUniCode) {
         if (Objects.isNull(stuUniCode)) {
             return Lists.newArrayList();
