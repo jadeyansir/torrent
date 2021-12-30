@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.torrent.zuel.recruitment.mapper.mybatis.StudentOfficerMapper">
+    <insert id="insertStudentOfficer" parameterType="com.torrent.zuel.recruitment.model.entity.StudentOfficerDO">
+        insert into student_officer(id,stu_uni_code,officer_name,serve_begin_time,serve_end_time)
+        values (#{id},#{stuUniCode},#{officerName},#{serveBeginTime},#{serveEndTime})
+    </insert>
+    <update id="updateStudentOfficer" parameterType="com.torrent.zuel.recruitment.model.entity.StudentOfficerDO">
+        update student_officer
+        <set>
+            <if test="officerName!=null">officer_name=#{officerName},</if>
+            <if test="serveBeginTime!=null">serve_begin_time=#{serveBeginTime},</if>
+            <if test="serveEndTime!=null">serve_end_time=#{serveEndTime}, </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="deleteStudentOfficer" parameterType="com.torrent.zuel.recruitment.model.entity.StudentOfficerDO">
+        delete from student_officer where id=#{id} And officer_name=#{officerName}
+    </delete>
+<!--    <insert id="insertStudentOfficer" parameterType="com.torrent.zuel.recruitment.model.entity.StudentOfficerDO">-->
+<!--        insert into student_officer(stu_uni_code,officer_name,serve_begin_time,serve_end_time)-->
+<!--        values (#{stuUniCode},#{officerName},#{serveBeginTime},#{serveEndTime})-->
+<!--    </insert>-->
+<!--    <update id="updateStudentOfficer" parameterType="com.torrent.zuel.recruitment.model.entity.StudentOfficerDO">-->
+<!--        update student_officer-->
+<!--        <set>-->
+<!--            <if test="officerName!=null">officer_name=#{officerName},</if>-->
+<!--            <if test="serveBeginTime!=null">serve_begin_time=#{serveBeginTime},</if>-->
+<!--            <if test="serveEndTime!=null">serve_end_time=#{serveEndTime}, </if>-->
+<!--        </set>-->
+<!--        where stu_uni_code=#{stuUniCode}-->
+<!--    </update>-->
+<!--    <delete id="deleteStudentOfficer" parameterType="com.torrent.zuel.recruitment.model.entity.StudentOfficerDO">-->
+<!--        delete from student_officer where stu_uni_code=#{stuUniCode} And officer_name=#{officerName}-->
+<!--    </delete>-->
+</mapper>
