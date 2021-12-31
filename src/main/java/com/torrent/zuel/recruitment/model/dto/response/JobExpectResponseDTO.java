@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 public class JobExpectResponseDTO {
 
+    @ApiModelProperty("id")
+    private Long id;
     @ApiModelProperty("学号")
     private Long stuUniCode;
     @ApiModelProperty("岗位描述")
@@ -24,6 +26,14 @@ public class JobExpectResponseDTO {
     private BigDecimal jobMaxSalary;
     @ApiModelProperty("求职状态(1:在校-找工作中,2:离校-找工作中,3:在校-看看机会,4:在校-暂不找工作)")
     private Integer jobSearchStatus;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public Long getStuUniCode() {
         return stuUniCode;
