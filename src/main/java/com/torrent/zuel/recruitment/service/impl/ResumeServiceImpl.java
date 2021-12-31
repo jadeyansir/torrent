@@ -82,6 +82,7 @@ public class ResumeServiceImpl implements ResumeService {
         jobExpectDO.setJobName(jobName);
         Optional<IndustryInfoDO> industryInfoDOOptional = industryInfoDAO.getIndustryByIndustryCode(industryCode);
         industryInfoDOOptional.ifPresent(x -> {
+            jobExpectDO.setIndustryCode(industryCode);
             jobExpectDO.setIndustryName(x.getIndustryName());
         });
         jobExpectDO.setJobAddress(jobAddress);
