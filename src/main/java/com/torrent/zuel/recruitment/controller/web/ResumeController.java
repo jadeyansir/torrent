@@ -145,11 +145,11 @@ public class ResumeController {
                                                         @RequestParam Long collegeUniCode,
                                                         @ApiParam(name = "collegeChiName", value = "学校名称")
                                                         @RequestParam String collegeChiName,
-                                                        @ApiParam(name = "educationLevel", value = "学历")
+                                                        @ApiParam(name = "educationLevel", value = "学历(1:博士;2:硕士;3:学士;4:专科;5:高中及以下)")
                                                         @RequestParam Integer educationLevel,
                                                         @ApiParam(name = "educationField", value = "所学专业")
                                                         @RequestParam String educationField,
-                                                        @ApiParam(name = "academicCertificates", value = "学历证书")
+                                                        @ApiParam(name = "academicCertificates", value = "学历证书(和学历类似？？？)")
                                                         @RequestParam Integer academicCertificates,
                                                         @ApiParam(name = "educationBeginTime", value = "学习开始时间")
                                                         @RequestParam Date educationBeginTime,
@@ -178,8 +178,8 @@ public class ResumeController {
     @ApiOperation("新增求职简历工作|实习经历")
     @GetMapping("/insert/history/work")
     public RestResponse<Integer> insertWorkHistory(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
-                                                   @ApiParam(name = "comUniCode", value = "公司编码") @RequestParam Long comUniCode,
-                                                   @ApiParam(name = "comChiName", value = "公司名称") @RequestParam String comChiName,
+                                                   @ApiParam(name = "comUniCode", value = "公司编码") @RequestParam(required = false) Long comUniCode,
+                                                   @ApiParam(name = "comChiName", value = "公司名称") @RequestParam(required = false) String comChiName,
                                                    @ApiParam(name = "industryCode", value = "行业") @RequestParam Integer industryCode,
                                                    @ApiParam(name = "educationField", value = "职位描述") @RequestParam String jobDetail,
                                                    @ApiParam(name = "monthlySalary", value = "月薪") @RequestParam Integer monthlySalary,
@@ -196,9 +196,9 @@ public class ResumeController {
     public RestResponse<Integer> modifyWorkHistory(@ApiParam(name = "stuUniCode", value = "学生学号") @RequestParam Long stuUniCode,
                                                    @ApiParam(name = "id", value = "工作经历id") @RequestParam Long id,
                                                    @ApiParam(name = "comUniCode", value = "公司编码")
-                                                   @RequestParam Long comUniCode,
+                                                   @RequestParam(required = false) Long comUniCode,
                                                    @ApiParam(name = "comChiName", value = "公司名称")
-                                                   @RequestParam String comChiName,
+                                                   @RequestParam(required = false) String comChiName,
                                                    @ApiParam(name = "industryCode", value = "行业")
                                                    @RequestParam Integer industryCode,
                                                    @ApiParam(name = "educationField", value = "职位描述")
