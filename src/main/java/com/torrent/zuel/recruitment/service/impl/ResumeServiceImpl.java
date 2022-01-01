@@ -198,7 +198,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public Integer modifyWorkHistory(Long stuUniCode, Long id, Integer modifyType, Long comUniCode, String comChiName, Integer industryCode,
                                      String jobDetail, Integer monthlySalary, Date jobWorkBeginTime, Date jobWorkEndTime) {
-        if (!ObjectUtils.allNotNull(stuUniCode, id)) {
+        if (!ObjectUtils.anyNotNull(stuUniCode, id)) {
             return 0;
         }
         WorkHistoryDO workHistoryDO = new WorkHistoryDO();

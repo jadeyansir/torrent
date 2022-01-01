@@ -42,7 +42,7 @@ public class WorkHistoryDAO {
             if (Objects.equals(DELETE, modifyType)) {
                 WorkHistoryDO historyDO = WorkHistoryDOOptional.get();
                 historyDO.setDeleted(DeletedEnum.DELETE.getValue());
-                workHistoryMapper.updateSelectiveByDynamicQuery(historyDO, query);
+                return workHistoryMapper.updateSelectiveByDynamicQuery(historyDO, query);
             }
             return workHistoryMapper.updateSelectiveByDynamicQuery(workHistoryDO, query);
         }
