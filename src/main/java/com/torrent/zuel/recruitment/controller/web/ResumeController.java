@@ -181,7 +181,7 @@ public class ResumeController {
                                                    @ApiParam(name = "comUniCode", value = "公司编码") @RequestParam(required = false) Long comUniCode,
                                                    @ApiParam(name = "comChiName", value = "公司名称") @RequestParam(required = false) String comChiName,
                                                    @ApiParam(name = "industryCode", value = "行业") @RequestParam Integer industryCode,
-                                                   @ApiParam(name = "educationField", value = "职位描述") @RequestParam String jobDetail,
+                                                   @ApiParam(name = "jobDetail", value = "职位描述") @RequestParam String jobDetail,
                                                    @ApiParam(name = "monthlySalary", value = "月薪") @RequestParam Integer monthlySalary,
                                                    @ApiParam(name = "jobWorkBeginTime", value = "工作开始时间")
                                                    @RequestParam Date jobWorkBeginTime,
